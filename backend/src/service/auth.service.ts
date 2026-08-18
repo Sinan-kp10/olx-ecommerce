@@ -52,13 +52,13 @@ export const loginService = async({email, password} : loginData) => {
     const user = await User.findOne({email})
 
     if(!user){
-        throw new Error("Invalid email or password")
+        throw new Error("User not found")
     }
 
     const isPasswordCorrect = bcrypt.compare(password, user.password)
 
     if (!isPasswordCorrect) {
-        throw new Error("Invalid email or password");
+        throw new Error("Invalid password");
     }
 
     const jwtSecret = process.env.JWT_SECRET

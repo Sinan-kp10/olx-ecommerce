@@ -19,9 +19,9 @@ export const signup = async(req : Request , res: Response) : Promise<void> => {
 
         console.error("Signup error:", error);
 
-        res.status(500).json({
+        res.status(401).json({
             success: false,
-            message: "Internal server error",
+            message: error instanceof Error ? error.message : "Signup failed" ,
         });
     }
 }
@@ -42,9 +42,9 @@ export const login = async(req : Request, res : Response): Promise<void> => {
 
         console.error("Login error:", error)
 
-        res.status(500).json({
+        res.status(401).json({
             success: false,
-            message: "Internal server error",
+            message: error instanceof Error ? error.message : "Login failed" ,
         });
     }
 }
