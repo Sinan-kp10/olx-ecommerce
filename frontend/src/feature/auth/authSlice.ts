@@ -21,12 +21,13 @@ const authSlice = createSlice({
         logout : (state)=>{
             state.user = null
             state.token = null
+            state.isAuthenticated = false
             state.error = null
         }
     },
 
     extraReducers : (builder)=> {
-        
+
         builder.addCase(login.pending, (state)=>{
             state.loading = true
             state.error = null
@@ -36,6 +37,7 @@ const authSlice = createSlice({
             state.loading = false
             state.token = action.payload.token
             state.user = action.payload.user
+            state.isAuthenticated = true
 
         })
 
@@ -51,10 +53,9 @@ const authSlice = createSlice({
             state.loading = true
             state.error = null
         })
-         builder.addCase(signup.fulfilled, (state, action)=> {
+         builder.addCase(signup.fulfilled, (state)=> {
             state.loading = false
-            state.token = action.payload.token
-            state.user = action.payload.user
+            state.error = null
 
         })
 
