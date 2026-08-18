@@ -6,6 +6,7 @@ import { login } from "../feature/auth/authThunk"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../validation/loginScema";
 import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
 
 
 interface LoginFormData {
@@ -39,28 +40,33 @@ function Login (){
         }
     }
 
-    return(
-        <>
-            <form  onSubmit={handleSubmit(onSubmit)}>
-
-         
-                <input type="email"  placeholder="Email Address" {...register("email")} />
-                <p>{errors.email?.message}</p>
-
-  
-                <input type="password"  placeholder="Password" {...register("password")} />
-                <p>{errors.password?.message}</p>
-
+    return (
+        <div className="auth-container">
+            <div className="auth-card">
+                <h2 className="auth-title">Welcome Back</h2>
+                <p className="auth-subtitle">Please enter your credentials to log in</p>
                 
+                <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-group">
+                        <input className="auth-input" type="email" placeholder="Email Address" {...register("email")} />
+                        {errors.email?.message && <p className="error-message">{errors.email.message}</p>}
+                    </div>
 
-                <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
-                <p>
-                    Don't have an account? <Link to="/Signup">Signup</Link>
+                    <div className="form-group">
+                        <input className="auth-input"  type="password" placeholder="Password" {...register("password")} />
+                        {errors.password?.message && <p className="error-message">{errors.password.message}</p>}
+                    </div>
+
+                    <button className="auth-button" type="submit" disabled={loading}>
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
+                
+                <p className="auth-footer">
+                    Don't have an account? <Link to="/Signup" className="auth-link">Signup</Link>
                 </p>
-
-            </form>
-        
-        </>
+            </div>
+        </div>
     )
 }
 
