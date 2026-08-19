@@ -4,7 +4,8 @@ import { useEffect } from "react"
 import { getProducts } from "../feature/product/productThunk"
 import { toast } from "react-toastify"
 import ProductCard from "../component/product/ProductCard"
-import Loading from "../component/product/loading/Loading"
+import Loading from "../component/loading/Loading"
+
 
 function Product(){
 
@@ -36,7 +37,7 @@ function Product(){
             {!loading && (products.length === 0 ? (<h2>No products available</h2>) : (
 
                 products.map((product) => (
-                    <ProductCard product={product} />
+                    <ProductCard  product={product} />
                 ))
             ))}
         </>

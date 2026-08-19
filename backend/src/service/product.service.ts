@@ -21,3 +21,18 @@ export const getProductById = async(id : string)=> {
 
     return product
 }
+
+export const createProduct = async(productData : { title: string; description: string; price: number; category: string; image: string; seller: string;})=>{
+
+    const product = await Product.create({
+        title: productData.title,
+        description: productData.description,
+        price: productData.price,
+        category: productData.category,
+        image: productData.image,
+        seller: productData.seller,
+    })
+
+    return Product
+
+}

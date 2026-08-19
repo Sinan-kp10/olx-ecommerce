@@ -5,7 +5,8 @@ import api from "../Service/api"
 import type { AxiosError } from "axios"
 import { toast } from "react-toastify"
 import ProductInfo from "../component/product/ProductInfo"
-import Loading from "../component/product/loading/Loading"
+import Loading from "../component/loading/Loading"
+
 
 function ProductDetails(){
 
@@ -52,3 +53,5 @@ function ProductDetails(){
         </>
     )
 }
+
+export default ProductDetails
