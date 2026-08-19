@@ -34,3 +34,22 @@ export const signup = createAsyncThunk("/auth/singup" , async(signupData : {name
         
     }
 } )
+
+export const checkAuth = createAsyncThunk("auth/checkAuth",async (_, { rejectWithValue }) => {
+
+        try {
+
+            const response = await api.get("/me");
+
+            return response.data.user
+
+        } catch (error) {
+
+            const err = error as AxiosError<ErrorResponse>;
+
+            return rejectWithValue(
+                err.response?.data.message || "Not authenticated"
+            );
+        }
+    }
+);

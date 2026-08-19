@@ -1,5 +1,6 @@
 import { Request , Response} from "express"
-import { loginService, signupService } from "../service/auth.service"
+import { getCurrentuser, loginService, signupService } from "../service/auth.service"
+import type { AuthRequest } from "../middleware/auth.middleware";
 
 
 
@@ -51,6 +52,26 @@ export const login = async(req : Request, res : Response): Promise<void> => {
         res.status(401).json({
             success: false,
             message: error instanceof Error ? error.message : "Login failed" ,
+        });
+    }
+}
+
+export const getMe = async(req: AuthRequest, res: Response): Promise<void> => {
+
+    try {
+
+        const user = await getCurrentuser(req.user!.userId);
+
+        res.status(200).json({
+            success: true,
+            user
+        });
+
+    } catch (error) {
+
+        res.status(404).json({
+            success: false,
+            message: "User not found"
         });
     }
 }

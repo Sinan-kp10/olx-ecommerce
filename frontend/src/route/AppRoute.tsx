@@ -5,8 +5,21 @@ import Product from "../pages/Product";
 import ProtectedRoute from "./ProtectedRoute";
 import ProductDetails from "../pages/ProductDetails";
 import Sell from "../pages/Sell";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import type { AppDispatch } from "../store/store";
+import { checkAuth } from "../feature/auth/authThunk";
+
+
 
 function AppRoute(){
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(checkAuth())
+
+    }, [dispatch])
 
     return(
         

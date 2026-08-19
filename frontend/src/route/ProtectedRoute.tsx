@@ -4,9 +4,11 @@ import { Navigate, Outlet } from "react-router-dom"
 
 function ProtectedRoute(){
 
-    const isAuthenticated = useSelector((state : RootState)=> state.auth.isAuthenticated)
+    const {isAuthenticated, authInitialized} = useSelector((state : RootState)=> state.auth)
 
-    console.log("ProtectedRoute auth:", isAuthenticated);
+    if (!authInitialized) {
+        return <h2>Checking authentication...</h2>;
+    }
 
     if(!isAuthenticated){
         return <Navigate to="/login" replace />

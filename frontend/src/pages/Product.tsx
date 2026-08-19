@@ -40,7 +40,7 @@ function Product(){
             {!loading && (products.length === 0 ? (<h2>No products available</h2>) : (
 
                 products.map((product) => (
-                    <ProductCard  product={product} />
+                    <ProductCard key={product._id} product={product} />
                 ))
             ))}
         </>

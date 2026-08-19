@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { login, signup } from "./authThunk"
+import { checkAuth, login, signup } from "./authThunk"
 import type { AuthState } from "../../types/authTypes"
 
 
@@ -9,6 +9,7 @@ const initialState : AuthState = {
     token : null,
     isAuthenticated : false,
     loading : false,
+    authInitialized: false,
     error : null
 }
 
@@ -64,6 +65,25 @@ const authSlice = createSlice({
             state.error = action.payload as string|| "Signup failed"
 
         })
+
+
+        builder.addCase(checkAuth.pending, (state) => {
+            state.loading = true;
+        });
+
+        builder.addCase(checkAuth.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload;
+            state.isAuthenticated = true;
+            state.authInitialized = true;
+        });
+
+        builder.addCase(checkAuth.rejected, (state) => {
+            state.loading = false;
+            state.user = null;
+            state.isAuthenticated = false;
+            state.authInitialized = true;
+        });
     
     }
 })

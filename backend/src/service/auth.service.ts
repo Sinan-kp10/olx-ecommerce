@@ -55,7 +55,7 @@ export const loginService = async({email, password} : loginData) => {
         throw new Error("User not found")
     }
 
-    const isPasswordCorrect = bcrypt.compare(password, user.password)
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if (!isPasswordCorrect) {
         throw new Error("Invalid password");
@@ -84,4 +84,15 @@ export const loginService = async({email, password} : loginData) => {
             email : user.email
         }
     }
+}
+
+export const getCurrentuser = async(userId : string) =>{
+
+    const user = await User.findById(userId).select("-password")
+
+    if(!user){
+        throw new Error("User not found");
+    }
+
+    return user;
 }

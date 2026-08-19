@@ -33,6 +33,6 @@ export const createProduct = async(productData : { title: string; description: s
         seller: productData.seller,
     })
 
-    return Product
+    return product
 
 }

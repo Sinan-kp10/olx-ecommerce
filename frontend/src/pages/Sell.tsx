@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
 import { createProduct } from "../feature/product/productThunk";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 interface SellFormData {
@@ -23,12 +24,15 @@ function Sell() {
 
     const {register, handleSubmit,formState: { errors }} = useForm<SellFormData>({resolver: zodResolver(sellSchema)});
 
+    const naviagte = useNavigate()
+
     const onSubmit = async(data: SellFormData) => {
         
         try {
 
             await dispatch(createProduct(data)).unwrap()
             toast.success( "Product listed successfully!");
+            naviagte("/")
             
         } catch (error) {
             
