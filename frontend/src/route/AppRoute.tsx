@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import type { AppDispatch } from "../store/store";
 import { checkAuth } from "../feature/auth/authThunk";
+import MainLayout from "../component/navbar/MainLayout";
 
 
 
@@ -27,13 +28,17 @@ function AppRoute(){
 
             <Routes>
 
+                <Route element={<MainLayout />}>
+                    <Route path="/" element={<Product />}></Route>
+
+                </Route>
+
                 <Route element={<ProtectedRoute />}>
                 
                     <Route path="/sell/product" element={<Sell />}></Route>
 
                 </Route>
 
-                <Route path="/" element={<Product />}></Route>
                 <Route path="/product/:id" element={<ProductDetails />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
