@@ -1,6 +1,7 @@
 import { createProduct, getAllProducts, getProductById } from "../service/product.service"
 import { Request, Response } from "express";
 import { uploadImage } from "../service/cloudinary.service";
+import type { AuthRequest } from "../middleware/auth.middleware";
 
 export const getProducts = async(req:Request, res: Response): Promise<void>=>{
 
@@ -46,7 +47,7 @@ export const getProductId = async(req: Request, res: Response): Promise<void>=>{
     }
 }
 
-export const createProductController = async(req: Request, res: Response): Promise<void>=>{
+export const createProductController = async(req: AuthRequest, res: Response): Promise<void>=>{
 
     try {
         if (!req.file) {
@@ -63,7 +64,7 @@ export const createProductController = async(req: Request, res: Response): Promi
         );
 
         const product = await createProduct({title: req.body.title, description: req.body.description,
-             price: Number(req.body.price), category: req.body.category, image: imageUrl, seller: req.body.seller})
+             price: Number(req.body.price), category: req.body.category, image: imageUrl, seller: req.user!.userId})
 
         res.status(201).json({
             success: true,
@@ -75,7 +76,7 @@ export const createProductController = async(req: Request, res: Response): Promi
         
         console.log("Create product error:", error);
 
-        res.status(404).json({
+        res.status(500).json({
             success: false,
             message: error instanceof Error ? error.message : "Failed to create product"
         });

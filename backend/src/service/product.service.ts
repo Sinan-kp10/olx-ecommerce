@@ -2,7 +2,7 @@ import Product from "../models/Product.model."
 
 export const getAllProducts = async()=>{
 
-    const products = await Product.find({isSold : true}).sort({createdAt : -1})
+    const products = await Product.find({isSold : false}).sort({createdAt : -1})
 
     return products
 }
