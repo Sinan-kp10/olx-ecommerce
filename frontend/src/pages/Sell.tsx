@@ -12,7 +12,7 @@ interface SellFormData {
     description: string;
     price: number;
     category: string;
-    image: string;
+    image: FileList;
 }
 
 function Sell() {
@@ -73,10 +73,12 @@ function Sell() {
 
 
             <input
-                type="text"
-                placeholder="Image URL"
+                type="file"
+                accept="image/*"
                 {...register("image")}
             />
+
+            <p>{errors.image?.message}</p>
             <p>{errors.image?.message}</p>
 
 

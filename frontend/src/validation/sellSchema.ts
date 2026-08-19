@@ -23,7 +23,10 @@ export const sellSchema = z.object({
         .string()
         .min(1, "Category is required"),
 
-    image: z
-        .string()
-        .url("Enter a valid image URL"),
+        image: z
+        .instanceof(FileList)
+        .refine(
+            (files) => files.length > 0,
+            "Please select an image"
+        )
 });

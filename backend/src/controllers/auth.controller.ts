@@ -30,6 +30,12 @@ export const login = async(req : Request, res : Response): Promise<void> => {
     try {
 
         const result = await loginService(req.body)
+
+        res.cookie("token", result.token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax"
+        });
         
         res.status(201).json({
             success : true,

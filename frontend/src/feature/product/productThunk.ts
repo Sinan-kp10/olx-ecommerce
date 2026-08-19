@@ -21,7 +21,7 @@ export const getProducts = createAsyncThunk("product/getProduct", async(_, {reje
 })
 
 export const createProduct = createAsyncThunk("product/createProduct", async(
-    productData: { title: string; description: string; price: number;category: string; image: string; },{ rejectWithValue })=>{
+    productData: { title: string; description: string; price: number;category: string; image: FileList; },{ rejectWithValue })=>{
 
         try {
 
