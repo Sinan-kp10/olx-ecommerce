@@ -25,7 +25,14 @@ export const createProduct = createAsyncThunk("product/createProduct", async(
 
         try {
 
-            const response = await api.post("/sell/product", productData)
+            const formData = new FormData()
+
+            formData.append("description", productData.description);
+            formData.append("price",productData.price.toString());
+            formData.append("category",productData.category);
+            formData.append("image",productData.image[0]);
+
+            const response = await api.post("/sell/product", formData)
 
             return response.data.product
         

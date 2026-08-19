@@ -79,7 +79,6 @@ function Sell() {
             />
 
             <p>{errors.image?.message}</p>
-            <p>{errors.image?.message}</p>
 
 
             <button type="submit" disabled={loading}>{loading ? "Listing product" : "Sell Product"}</button>

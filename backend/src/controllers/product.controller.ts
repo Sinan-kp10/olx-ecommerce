@@ -1,5 +1,6 @@
 import { createProduct, getAllProducts, getProductById } from "../service/product.service"
 import { Request, Response } from "express";
+import { uploadImage } from "../service/cloudinary.service";
 
 export const getProducts = async(req:Request, res: Response): Promise<void>=>{
 
@@ -48,9 +49,21 @@ export const getProductId = async(req: Request, res: Response): Promise<void>=>{
 export const createProductController = async(req: Request, res: Response): Promise<void>=>{
 
     try {
+        if (!req.file) {
+            res.status(400).json({
+                success: false,
+                message: "Product image is required"
+            });
+
+            return;
+        }
+
+        const imageUrl = await uploadImage(
+            req.file.buffer
+        );
 
         const product = await createProduct({title: req.body.title, description: req.body.description,
-             price: req.body.price, category: req.body.category, image: req.body.image, seller: req.body.seller})
+             price: Number(req.body.price), category: req.body.category, image: imageUrl, seller: req.body.seller})
 
         res.status(201).json({
             success: true,
