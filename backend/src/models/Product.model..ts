@@ -7,7 +7,7 @@ interface IProduct extends Document {
     category : string
     image : string
     seller : mongoose.Types.ObjectId
-    isSolid : boolean 
+    isSold : boolean 
 }
 
 const ProductSchema = new Schema<IProduct>({
@@ -46,7 +46,7 @@ const ProductSchema = new Schema<IProduct>({
         required : true,
         trim : true
     },
-    isSolid : {
+    isSold : {
         type : Boolean,
         default : false
     }

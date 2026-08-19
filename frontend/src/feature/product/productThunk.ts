@@ -1,12 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
 import api from "../../Service/api";
+import type { ErrorResponse } from "../../types/productTypes";
 import type { AxiosError } from "axios";
 
-interface ErrorResponse {
-    success: boolean;
-    message: string;
-}
+
 
 export const getProducts = createAsyncThunk("/product/getProduct", async(_, {rejectWithValue})=>{
     try {

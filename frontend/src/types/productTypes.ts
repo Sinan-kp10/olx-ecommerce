@@ -14,3 +14,13 @@ export interface ProductState {
     loading: boolean;
     error: string | null;
 }
+
+export interface Productprops {
+    product : Product
+}
+
+export interface ErrorResponse {
+    success: boolean;
+    message: string;
+}
+

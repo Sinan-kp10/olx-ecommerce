@@ -3,6 +3,8 @@ import type { AppDispatch, RootState } from "../store/store"
 import { useEffect } from "react"
 import { getProducts } from "../feature/product/productThunk"
 import { toast } from "react-toastify"
+import ProductCard from "../component/product/ProductCard"
+import Loading from "../component/product/loading/Loading"
 
 function Product(){
 
@@ -29,28 +31,14 @@ function Product(){
 
     return(
         <>
-            {loading && <h1>Loading.....</h1>}
-            {!loading && (products.length === 0 ? (<p>No products available</p>) : (
-                products.map((product)=> (
-                    <div key={product._id}>
+            {loading && <Loading />}
 
-                        <img
-                        src={product.image}
-                        alt={product.title}
-                        width="200"
-                        />
+            {!loading && (products.length === 0 ? (<h2>No products available</h2>) : (
 
-                        <h2>{product.title}</h2>
-
-                        <p>{product.description}</p>
-
-                        <p>₹{product.price}</p>
-
-                        <p>{product.category}</p>
-
-                    </div>
-                )))
-            )}
+                products.map((product) => (
+                    <ProductCard product={product} />
+                ))
+            ))}
         </>
     )
 }
