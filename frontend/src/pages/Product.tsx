@@ -33,7 +33,6 @@ function Product(){
 
     return(
         <>
-            <Link to="/sell/product">clisck</Link>
 
             {loading && <Loading />}
 

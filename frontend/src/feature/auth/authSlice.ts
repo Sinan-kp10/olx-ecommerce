@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { checkAuth, login, signup } from "./authThunk"
+import { checkAuth, login, logout, signup } from "./authThunk"
 import type { AuthState } from "../../types/authTypes"
 
 
@@ -76,6 +76,15 @@ const authSlice = createSlice({
             state.user = null;
             state.isAuthenticated = false;
             state.authInitialized = true;
+        });
+
+        builder.addCase(logout.fulfilled, (state) => {
+
+            state.user = null;
+            state.token = null;
+            state.isAuthenticated = false;
+            state.error = null;
+
         });
     
     }

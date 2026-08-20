@@ -1,4 +1,4 @@
-import {  createAsyncThunk } from "@reduxjs/toolkit"
+import {  createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit"
 import api from "../../Service/api"
 import {AxiosError} from "axios";
 import type { ErrorResponse} from "../../types/authTypes";
@@ -37,19 +37,36 @@ export const signup = createAsyncThunk("/auth/singup" , async(signupData : {name
 
 export const checkAuth = createAsyncThunk("auth/checkAuth",async (_, { rejectWithValue }) => {
 
-        try {
+    try {
 
-            const response = await api.get("/me");
+        const response = await api.get("/me");
 
-            return response.data.user
+        return response.data.user
 
-        } catch (error) {
+    } catch (error) {
 
-            const err = error as AxiosError<ErrorResponse>;
+        const err = error as AxiosError<ErrorResponse>;
 
-            return rejectWithValue(
-                err.response?.data.message || "Not authenticated"
-            );
-        }
+        return rejectWithValue(
+            err.response?.data.message || "Not authenticated"
+        );
     }
-);
+})
+
+export const logout = createAsyncThunk("auth/logout", async (_, {rejectWithValue})=> {
+
+    try {
+
+        const responce = await api.post("/logout")
+
+        return responce.data
+        
+    } catch (error) {
+        
+        const err = error as AxiosError<ErrorResponse>;
+
+        return rejectWithValue(
+            err.response?.data.message || "Logout failed"
+        );
+    }
+})

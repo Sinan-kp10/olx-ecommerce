@@ -75,3 +75,28 @@ export const getMe = async(req: AuthRequest, res: Response): Promise<void> => {
         });
     }
 }
+
+export const logout = async(req: Request, res: Response) : Promise<void> =>{
+
+    try {
+
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax"
+        })
+
+        res.status(200).json({
+            success: true,
+            message: "Logout successful"
+        })
+
+        
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: "Logout failed"
+        });
+    }
+}

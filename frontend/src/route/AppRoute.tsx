@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import type { AppDispatch } from "../store/store";
 import { checkAuth } from "../feature/auth/authThunk";
-import MainLayout from "../component/navbar/MainLayout";
+import MainLayout from "../component/layout/MainLayout";
 
 
 

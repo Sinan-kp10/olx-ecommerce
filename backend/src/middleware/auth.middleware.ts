@@ -1,18 +1,21 @@
-import { Request, Response, NextFunction} from "express"
+import { Request, Response, NextFunction } from "express"
 import jwt from "jsonwebtoken"
+import "multer"
 
 export interface AuthRequest extends Request {
-    user?:{
-        userId : string,
-        email : string
+    user?: {
+        userId: string,
+        email: string
     }
+
+    file?: Express.Multer.File
 }
 
-export const authMiddleware = (req: AuthRequest, res : Response, next: NextFunction) : void =>{
+export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction): void => {
 
     const token = req.cookies.token
 
-      if (!token) {
+    if (!token) {
         res.status(401).json({
             success: false,
             message: "Authentication token is required"
@@ -31,7 +34,7 @@ export const authMiddleware = (req: AuthRequest, res : Response, next: NextFunct
     }
 
     try {
-        
+
         const decoded = jwt.verify(token, jwtSecret)
 
         if (typeof decoded === "string") {
@@ -43,8 +46,8 @@ export const authMiddleware = (req: AuthRequest, res : Response, next: NextFunct
         }
 
         req.user = {
-            userId :  decoded.userId as string,
-            email : decoded.email as string
+            userId: decoded.userId as string,
+            email: decoded.email as string
         }
 
         next()
@@ -55,6 +58,6 @@ export const authMiddleware = (req: AuthRequest, res : Response, next: NextFunct
             success: false,
             message: "Invalid or expired token"
         })
-        
+
     }
 }
