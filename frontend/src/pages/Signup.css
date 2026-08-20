@@ -5,13 +5,15 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .auth-card {
   background-color: var(--bg-card);
   border: 1px solid #e2e8f0;
   border-radius: 16px;
-  padding: clamp(1.75rem, 5vw, 2.75rem);
+  padding: clamp(1.25rem, 5vw, 2.75rem);
   width: 100%;
   max-width: 440px;
   box-shadow: var(--shadow-card);

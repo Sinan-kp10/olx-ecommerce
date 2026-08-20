@@ -74,6 +74,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   height: 2.625rem; /* Ensures consistent height */
+  word-break: break-word;
 }
 
 .product-card-footer {

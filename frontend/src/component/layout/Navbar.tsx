@@ -12,13 +12,13 @@ function Navbar() {
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
 
-    const handleClick = async ()=>{
+    const handleClick = async () => {
 
         try {
 
             await dispatch(logout())
             navigate("/login")
-            
+
         } catch (error) {
 
             toast.error(error as string);

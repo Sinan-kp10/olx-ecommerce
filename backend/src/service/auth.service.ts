@@ -46,7 +46,7 @@ export const signupService = async({name, email, password} : singupData)=>{
 export const loginService = async({email, password} : loginData) => {
 
     if(!email || !password){
-        throw new Error("Name and password required")
+        throw new Error("Email and password required")
     }
 
     const user = await User.findOne({email})

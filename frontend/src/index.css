@@ -101,3 +101,31 @@ body {
   margin-top: 3rem;
 }
 
+/* Compact Toast messages on mobile devices */
+@media (max-width: 576px) {
+  .Toastify__toast-container {
+    width: 85% !important;
+    left: 7.5% !important;
+    right: 7.5% !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+  }
+  
+  .Toastify__toast {
+    min-height: 40px !important;
+    margin-bottom: 8px !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+  }
+
+  .Toastify__toast-body {
+    font-size: 0.825rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .Toastify__close-button {
+    align-self: center !important;
+  }
+}
+
