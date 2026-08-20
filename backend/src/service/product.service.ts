@@ -1,5 +1,6 @@
 import Product from "../models/Product.model."
 import { uploadImage } from "./cloudinary.service"
+import "multer"
 
 export const getAllProducts = async()=>{
 
@@ -76,6 +77,20 @@ export const updateProduct = async(productId : string, productData:{ title: stri
     }
 
     await product.save();
+
+    return product
+}
+
+export const deleteProduct = async (productId : string, userId :string)=>{
+
+    const product = await Product.findByIdAndDelete({
+        _id : productId,
+        seller : userId
+    })
+
+    if(!product){
+        throw new Error("Product not found")
+    }
 
     return product
 }

@@ -1,4 +1,4 @@
-import { createProduct, getAllProducts, getMyProducts, getProductById, updateProduct } from "../service/product.service"
+import { createProduct, deleteProduct, getAllProducts, getMyProducts, getProductById, updateProduct } from "../service/product.service"
 import { Request, Response } from "express";
 import type { AuthRequest } from "../middleware/auth.middleware";
 
@@ -100,8 +100,6 @@ export const createProductController = async(req: AuthRequest, res: Response): P
     }
 }
 
-
-
 export const updateProductController = async ( req: AuthRequest, res: Response): Promise<void> => {
 
     try {
@@ -128,3 +126,28 @@ export const updateProductController = async ( req: AuthRequest, res: Response):
         })
     }
 }
+
+export const deleteProductController = async(req:AuthRequest, res: Response): Promise<void>=>{
+
+    try {
+
+        const {id} = req.params
+
+        const product = await deleteProduct(id as string, req.user!.userId)
+        
+        res.status(200).json({
+            success: true,
+            message: "Product deleted successfully",
+            product
+        })
+
+    } catch (error) {
+        console.log("Delete product error:", error);
+
+        res.status(404).json({
+            success: false,
+            message: error instanceof Error? error.message : "Failed to delete product"
+        })
+    }
+}
+

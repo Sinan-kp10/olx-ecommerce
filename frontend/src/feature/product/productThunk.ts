@@ -36,7 +36,6 @@ export const createProduct = createAsyncThunk("product/createProduct", async(
             const response = await api.post("/sell/product", formData)
 
             return response.data.product
-        
             
         } catch (error) {
             const err = error as AxiosError<ErrorResponse>
@@ -98,5 +97,19 @@ export const updateProduct = createAsyncThunk("product/updateProduct",async ({ i
             err.response?.data.message ||
             "Failed to update product"
         );
+    }
+})
+
+export const deleteProduct = createAsyncThunk("product/delete", async(id :string, {rejectWithValue})=>{
+    try {
+
+        const response = await api.delete(`/product/delete/${id}`)
+
+        return response.data.product
+        
+    } catch (error) {
+        
+        const err = error as AxiosError<ErrorResponse>
+        return rejectWithValue(err.response?.data.message || "Failed to delete product" )
     }
 })

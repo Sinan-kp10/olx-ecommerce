@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProductId, getProducts, createProductController, getMyProductsController, updateProductController } from "../controllers/product.controller";
+import { getProductId, getProducts, createProductController, getMyProductsController, updateProductController, deleteProductController } from "../controllers/product.controller";
 import { authMiddleware } from "../middleware/auth.middleware";
 import upload from "../middleware/upload.middleware";
 
@@ -10,6 +10,7 @@ router.get("/product/:id", getProductId)
 router.post("/sell/product", authMiddleware,upload.single("image"), createProductController)
 router.get("/sell", authMiddleware, getMyProductsController)
 router.put("/sell/product/:id", authMiddleware, upload.single("image"), updateProductController)
+router.delete("/product/delete/:id", authMiddleware, deleteProductController)
 
 
 
