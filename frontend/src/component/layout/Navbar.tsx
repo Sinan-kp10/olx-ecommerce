@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store";
 import { logout } from "../../feature/auth/authThunk";
 import { toast } from "react-toastify";
+import "./Navbar.css";
 
 function Navbar() {
 
@@ -28,31 +29,23 @@ function Navbar() {
 
 
     return (
-        <nav>
+        <nav className="navbar">
+            <div className="navbar-container container">
+                <Link to="/" className="navbar-brand">
+                    <h4>OLX</h4>
+                </Link>
 
-            <h4>OLX</h4>
+                <div className="navbar-menu">
+                    <Link to="/" className="navbar-link">Products</Link>
+                    <Link to="/sell/product" className="navbar-link sell-link">Sell</Link>
 
-            <div>
-
-                <Link to="/">Products</Link>
-
-               
-                    <Link to="/sell/product">
-                        Sell
-                    </Link>
-                
-
-                {isAuthenticated ? (
-                    <button onClick={handleClick}>Logout</button>
-                ) : (
-                    <>
-                        <Link to="/login">Login</Link>
-
-                    </>
-                )}
-
+                    {isAuthenticated ? (
+                        <button className="navbar-btn logout-btn" onClick={handleClick}>Logout</button>
+                    ) : (
+                        <Link to="/login" className="navbar-btn login-btn">Login</Link>
+                    )}
+                </div>
             </div>
-
         </nav>
     )
 }

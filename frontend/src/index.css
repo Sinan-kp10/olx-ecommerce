@@ -1,22 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --primary-color: #0f172a;
-  --primary-hover: #1e293b;
-  --primary-active: #020617;
-  --text-main: #0f172a;
-  --text-muted: #475569;
+  --primary-color: #002f34;
+  --primary-hover: #004d56;
+  --primary-active: #001a1d;
+  --accent-teal: #00a49f;
+  --accent-teal-hover: #008f8a;
+  --text-main: #002f34;
+  --text-muted: #4e6466;
   --text-placeholder: #94a3b8;
-  --text-link: #2563eb;
-  --text-link-hover: #1d4ed8;
+  --text-link: #007a87;
+  --text-link-hover: #005f69;
   --border-color: #cbd5e1;
-  --border-focus: #0f172a;
+  --border-focus: #00a49f;
   --error-color: #e11d48;
   --error-bg: #fff1f2;
-  --bg-page: #f8fafc;
+  --bg-page: #f2f4f5;
   --bg-card: #ffffff;
-  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
-  --shadow-card-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-card: 0 4px 6px -1px rgba(0, 47, 52, 0.05), 0 2px 4px -2px rgba(0, 47, 52, 0.05), 0 0 0 1px rgba(0, 47, 52, 0.02);
+  --shadow-card-hover: 0 20px 25px -5px rgba(0, 47, 52, 0.1), 0 8px 10px -6px rgba(0, 47, 52, 0.1), 0 0 0 1px rgba(0, 47, 52, 0.02);
   --transition-speed: 0.15s;
 }
 
@@ -29,12 +31,11 @@ body {
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-page);
-  background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, transparent 50%),
-                    radial-gradient(at 50% 0%, hsla(225,39%,30%,0.08) 0, transparent 50%),
-                    radial-gradient(at 100% 0%, hsla(339,49%,30%,0.05) 0, transparent 50%);
+  background-image: radial-gradient(at 0% 0%, rgba(0, 164, 159, 0.03) 0, transparent 50%),
+                    radial-gradient(at 50% 0%, rgba(0, 47, 52, 0.04) 0, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(0, 164, 159, 0.02) 0, transparent 50%);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   width: 100%;
   color: var(--text-main);
@@ -43,10 +44,60 @@ body {
 
 #root {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   min-height: 100vh;
   width: 100%;
-  padding: clamp(1rem, 5vw, 2.5rem);
+  padding: 0;
   box-sizing: border-box;
 }
+
+/* Base utility container */
+.container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  box-sizing: border-box;
+}
+
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.products-container {
+  width: 100%;
+}
+
+.products-section-title {
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.no-products {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 3rem;
+}
+

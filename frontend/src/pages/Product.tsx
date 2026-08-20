@@ -5,7 +5,7 @@ import { getProducts } from "../feature/product/productThunk"
 import { toast } from "react-toastify"
 import ProductCard from "../component/product/ProductCard"
 import Loading from "../component/loading/Loading"
-import { Link } from "react-router-dom"
+
 
 
 function Product(){
@@ -36,11 +36,15 @@ function Product(){
 
             {loading && <Loading />}
 
-            {!loading && (products.length === 0 ? (<h2>No products available</h2>) : (
-
-                products.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                ))
+            {!loading && (products.length === 0 ? (<h2 className="no-products">No products available</h2>) : (
+                <div className="products-container">
+                    <h2 className="products-section-title">Fresh Recommendations</h2>
+                    <div className="products-grid">
+                        {products.map((product) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))}
+                    </div>
+                </div>
             ))}
         </>
     )

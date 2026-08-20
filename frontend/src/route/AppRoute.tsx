@@ -30,6 +30,8 @@ function AppRoute(){
 
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Product />}></Route>
+                    <Route path="/product/:id" element={<ProductDetails />}></Route>
+
 
                 </Route>
 
@@ -39,7 +41,6 @@ function AppRoute(){
 
                 </Route>
 
-                <Route path="/product/:id" element={<ProductDetails />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
 

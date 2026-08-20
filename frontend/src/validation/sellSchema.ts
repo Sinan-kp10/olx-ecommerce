@@ -14,16 +14,14 @@ export const sellSchema = z.object({
         ),
 
     price: z
-        .number()
-        .positive(
-            "Price must be greater than 0"
-        ),
+        .number("Price is required")
+        .positive("Price must be greater than 0"),
 
     category: z
         .string()
         .min(1, "Category is required"),
 
-        image: z
+    image: z
         .instanceof(FileList)
         .refine(
             (files) => files.length > 0,

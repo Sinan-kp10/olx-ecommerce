@@ -1,0 +1,270 @@
+.sell-page-container {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: all var(--transition-speed) ease;
+  align-self: flex-start;
+}
+
+.back-button:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background-color: rgba(0, 164, 159, 0.05);
+  transform: translateX(-4px);
+}
+
+.sell-card {
+  background-color: var(--bg-card);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  width: 100%;
+  max-width: 100%;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-speed) ease;
+  box-sizing: border-box;
+}
+
+.sell-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.sell-title {
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.sell-form {
+  width: 100%;
+}
+
+.sell-form-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  width: 100%;
+}
+
+.sell-form-left-col,
+.sell-form-right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.sell-input,
+.sell-textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  box-sizing: border-box;
+}
+
+.sell-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.sell-input::placeholder,
+.sell-textarea::placeholder {
+  color: var(--text-placeholder);
+}
+
+.sell-input:focus,
+.sell-textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px rgba(0, 164, 159, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.file-upload-wrapper {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color var(--transition-speed) ease, background-color var(--transition-speed) ease;
+}
+
+.file-upload-wrapper:hover {
+  border-color: var(--accent-teal);
+  background-color: rgba(0, 164, 159, 0.01);
+}
+
+.file-upload-label {
+  background-color: var(--accent-teal);
+  color: #ffffff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all var(--transition-speed) ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 164, 159, 0.1);
+}
+
+.file-upload-label:hover {
+  background-color: var(--accent-teal-hover);
+  box-shadow: 0 4px 12px rgba(0, 164, 159, 0.2);
+}
+
+.file-upload-label:active {
+  transform: scale(0.98);
+}
+
+.error-message {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--error-color);
+  margin: 0.35rem 0 0 0;
+  text-align: left;
+}
+
+.sell-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  margin-top: 1rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.sell-button:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(0, 47, 52, 0.2);
+}
+
+.sell-button:active:not(:disabled) {
+  background-color: var(--primary-active);
+  transform: scale(0.98);
+}
+
+.sell-button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .sell-form-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .sell-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+  
+  .sell-button {
+    padding: 1rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.file-upload-wrapper.has-preview {
+  position: relative;
+  padding: 0;
+  border-style: solid;
+  overflow: hidden;
+  height: 250px;
+}
+
+.image-preview-full {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #f8fafc;
+}
+
+.overlay-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 47, 52, 0.85);
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+.overlay-label:hover {
+  background-color: var(--accent-teal);
+  border-color: transparent;
+  box-shadow: 0 6px 16px rgba(0, 164, 159, 0.4);
+}
+
+.overlay-label:active {
+  transform: translateX(-50%);
+}

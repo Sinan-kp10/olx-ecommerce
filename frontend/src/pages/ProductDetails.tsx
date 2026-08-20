@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import type { ErrorResponse, Product } from "../types/productTypes"
 import api from "../Service/api"
 import type { AxiosError } from "axios"
@@ -11,6 +11,7 @@ import Loading from "../component/loading/Loading"
 function ProductDetails(){
 
     const {id} = useParams()
+    const navigate = useNavigate()
 
     const [product, setProduct] = useState<Product | null>(null)
 
@@ -39,7 +40,11 @@ function ProductDetails(){
 
     return(
 
-        <>
+        <div className="product-details-page container">
+
+            <button onClick={() => navigate(-1)} className="back-button">
+                ← Back
+            </button>
 
             {loading && <Loading />}
 
@@ -48,9 +53,9 @@ function ProductDetails(){
             )}
 
             {!loading && !product && (
-                <p>No product available</p>
+                <p className="no-product-error">No product available</p>
             )}
-        </>
+        </div>
     )
 }
 

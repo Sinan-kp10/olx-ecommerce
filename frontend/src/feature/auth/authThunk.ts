@@ -1,4 +1,4 @@
-import {  createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit"
+import {  createAsyncThunk } from "@reduxjs/toolkit"
 import api from "../../Service/api"
 import {AxiosError} from "axios";
 import type { ErrorResponse} from "../../types/authTypes";

@@ -1,0 +1,167 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  z-index: 1000;
+  transition: all var(--transition-speed) ease;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.navbar-brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand h4 {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin: 0;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-teal) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity var(--transition-speed) ease;
+}
+
+.navbar-brand:hover h4 {
+  opacity: 0.85;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.navbar-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color var(--transition-speed) ease;
+}
+
+.navbar-link:hover {
+  color: var(--primary-color);
+}
+
+/* Underline slide effect */
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-teal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-speed) ease;
+}
+
+.navbar-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Sell link custom badge style */
+.navbar-link.sell-link {
+  background-color: transparent;
+  color: var(--accent-teal);
+  border: 1.5px solid var(--accent-teal);
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  transition: all var(--transition-speed) ease;
+}
+
+.navbar-link.sell-link::after {
+  display: none;
+}
+
+.navbar-link.sell-link:hover {
+  background-color: rgba(0, 164, 159, 0.05);
+  color: var(--accent-teal);
+  border-color: var(--accent-teal);
+  box-shadow: 0 4px 12px rgba(0, 164, 159, 0.1);
+}
+
+/* Buttons styling */
+.navbar-btn {
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-speed) ease;
+}
+
+.login-btn {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+}
+
+.login-btn:hover {
+  background-color: var(--accent-teal);
+  box-shadow: 0 4px 12px rgba(0, 164, 159, 0.2);
+}
+
+.logout-btn {
+  background-color: transparent;
+  color: var(--error-color);
+  border: 1.5px solid var(--error-color);
+}
+
+.logout-btn:hover {
+  background-color: var(--error-bg);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.1);
+}
+
+/* Mobile Media Queries */
+@media (max-width: 576px) {
+  .navbar-container {
+    height: 60px;
+  }
+  
+  .navbar-menu {
+    gap: 0.75rem;
+  }
+  
+  .navbar-link {
+    font-size: 0.875rem;
+  }
+  
+  .navbar-link.sell-link {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.825rem;
+    border-width: 2.5px;
+  }
+  
+  .navbar-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.875rem;
+  }
+}
