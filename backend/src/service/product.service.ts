@@ -16,7 +16,6 @@ export const getProductById = async(id : string)=> {
 
     if(!product){
         throw new Error("Product not found")
-
     }
 
     return product
@@ -35,4 +34,13 @@ export const createProduct = async(productData : { title: string; description: s
 
     return product
 
+}
+
+export const getMyProducts = async(userId : string) =>{
+
+    const products = await Product.find({
+        seller : userId
+    }).sort({createdAt : -1})
+
+    return products
 }

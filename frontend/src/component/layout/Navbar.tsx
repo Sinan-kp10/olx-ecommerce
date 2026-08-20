@@ -37,7 +37,7 @@ function Navbar() {
 
                 <div className="navbar-menu">
                     <Link to="/" className="navbar-link">Products</Link>
-                    <Link to="/sell/product" className="navbar-link sell-link">Sell</Link>
+                    <Link to="/sell" className="navbar-link sell-link">Sell</Link>
 
                     {isAuthenticated ? (
                         <button className="navbar-btn logout-btn" onClick={handleClick}>Logout</button>

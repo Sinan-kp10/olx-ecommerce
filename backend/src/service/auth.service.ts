@@ -21,6 +21,10 @@ export const signupService = async({name, email, password} : singupData)=>{
         throw new Error("Name, email and password are required")
     }
 
+    if(password.trim().length < 5){
+        throw new Error("password must be contain 6 charachters!")
+    }
+
     const existingUser = await User.findOne({email})
 
     if(existingUser){
@@ -47,6 +51,10 @@ export const loginService = async({email, password} : loginData) => {
 
     if(!email || !password){
         throw new Error("Email and password required")
+    }
+
+    if(password.trim().length < 5){
+        throw new Error("password must be contain 6 charachters!")
     }
 
     const user = await User.findOne({email})

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sellSchema } from "../validation/sellSchema";
+import { sellSchema } from "../../validation/sellSchema";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../store/store";
-import { createProduct } from "../feature/product/productThunk";
+import type { AppDispatch, RootState } from "../../store/store";
+import { createProduct } from "../../feature/product/productThunk";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import "./Sell.css";
+import "./SellForm.css";
 
 
 interface SellFormData {

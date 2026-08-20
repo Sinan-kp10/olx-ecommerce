@@ -5,7 +5,7 @@ import type { AxiosError } from "axios";
 
 
 
-export const getProducts = createAsyncThunk("product/getProduct", async(_, {rejectWithValue})=>{
+export const getProducts = createAsyncThunk("product/getProducts", async(_, {rejectWithValue})=>{
     try {
         
         const response = await api.get("/")
@@ -44,4 +44,19 @@ export const createProduct = createAsyncThunk("product/createProduct", async(
             return rejectWithValue(err.response?.data.message || "Failed to create product")
         }
 
+})
+
+export const getMyProducts = createAsyncThunk("product/getMyProducts", async(_, {rejectWithValue})=>{
+    try {
+        
+        const response = await api.get("/sell")
+
+        return response.data.products
+
+    } catch (error) {
+        
+        const err = error as AxiosError<ErrorResponse>
+
+       return rejectWithValue(err.response?.data.message || "Failed to fetch products")
+    }
 })

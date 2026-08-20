@@ -1,4 +1,4 @@
-import { createProduct, getAllProducts, getProductById } from "../service/product.service"
+import { createProduct, getAllProducts, getMyProducts, getProductById } from "../service/product.service"
 import { Request, Response } from "express";
 import { uploadImage } from "../service/cloudinary.service";
 import type { AuthRequest } from "../middleware/auth.middleware";
@@ -79,6 +79,28 @@ export const createProductController = async(req: AuthRequest, res: Response): P
         res.status(500).json({
             success: false,
             message: error instanceof Error ? error.message : "Failed to create product"
+        });
+    }
+}
+
+export const getMyProductsController = async(req: AuthRequest, res: Response) : Promise<void>=>{
+
+    try {
+
+        const products = await getMyProducts(req.user!.userId)
+
+        res.status(200).json({
+            success : true,
+            products
+        })
+        
+    } catch (error) {
+        
+        console.log("Fetch my product error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: error instanceof Error ? error.message : "Failed to fetch your product"
         });
     }
 }

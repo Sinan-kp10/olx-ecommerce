@@ -4,12 +4,13 @@ import Signup from "../pages/Signup";
 import Product from "../pages/Product";
 import ProtectedRoute from "./ProtectedRoute";
 import ProductDetails from "../pages/ProductDetails";
-import Sell from "../pages/Sell";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import type { AppDispatch } from "../store/store";
 import { checkAuth } from "../feature/auth/authThunk";
 import MainLayout from "../component/layout/MainLayout";
+import SellProducts from "../pages/SellProducts";
+import Sell from "../component/product/SellForm";
 
 
 
@@ -32,14 +33,18 @@ function AppRoute(){
                     <Route path="/" element={<Product />}></Route>
                     <Route path="/product/:id" element={<ProductDetails />}></Route>
 
-
-                </Route>
-
-                <Route element={<ProtectedRoute />}>
+                    <Route element={<ProtectedRoute />}>
                 
-                    <Route path="/sell/product" element={<Sell />}></Route>
+                        <Route path="/sell" element={<SellProducts />}></Route>
+                        <Route path="/sell/product" element={<Sell />}></Route>
+
+
+                    </Route>
+
 
                 </Route>
+
+                
 
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>

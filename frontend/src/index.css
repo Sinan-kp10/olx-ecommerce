@@ -56,7 +56,7 @@ body {
 /* Base utility container */
 .container {
   width: 100%;
-  max-width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 clamp(1rem, 3vw, 2.5rem);
   box-sizing: border-box;
