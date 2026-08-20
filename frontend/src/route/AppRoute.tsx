@@ -10,7 +10,9 @@ import type { AppDispatch } from "../store/store";
 import { checkAuth } from "../feature/auth/authThunk";
 import MainLayout from "../component/layout/MainLayout";
 import SellProducts from "../pages/SellProducts";
-import Sell from "../component/product/SellForm";
+import AddEditProduct from "../pages/AddEditProduct";
+
+
 
 
 
@@ -36,7 +38,8 @@ function AppRoute(){
                     <Route element={<ProtectedRoute />}>
                 
                         <Route path="/sell" element={<SellProducts />}></Route>
-                        <Route path="/sell/product" element={<Sell />}></Route>
+                        <Route path="/sell/product" element={<AddEditProduct />}></Route>
+                        <Route path="/sell/product/edit/:id" element={<AddEditProduct />}/>
 
 
                     </Route>

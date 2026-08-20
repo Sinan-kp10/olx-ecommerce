@@ -1,54 +1,112 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sellSchema } from "../../validation/sellSchema";
 import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../store/store";
-import { createProduct } from "../../feature/product/productThunk";
+import type { AppDispatch, RootState } from "../store/store";
+import { createProduct, updateProduct } from "../feature/product/productThunk";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import "./SellForm.css";
+import { useNavigate, useParams } from "react-router-dom";
+import "./AddEditProduct.css";
+import {  AddProductSchema, EditProductSchema } from "../validation/sellSchema";
+import api from "../Service/api";
+import type { AxiosError } from "axios";
+import type { ErrorResponse } from "../types/authTypes";
 
 
-interface SellFormData {
+interface AddEditProductFormData {
     title: string;
     description: string;
     price: number;
     category: string;
-    image: FileList;
+    image?: FileList;
 }
 
-function Sell() {
+function AddEditProduct() {
 
     const dispatch = useDispatch<AppDispatch>()
 
     const { loading } = useSelector((state: RootState) => state.product)
+    const {id} = useParams()
+    const isEditMode = Boolean(id);
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<SellFormData>({ resolver: zodResolver(sellSchema) });
+    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<AddEditProductFormData>({ resolver: zodResolver(isEditMode ? EditProductSchema : AddProductSchema) });
 
     const naviagte = useNavigate()
+    
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const imageFileList = watch("image");
+    const imageFileList = watch("image")
 
     useEffect(() => {
-        if (imageFileList && imageFileList.length > 0) {
-            const file = imageFileList[0];
-            const url = URL.createObjectURL(file);
-            setImagePreview(url);
-            return () => URL.revokeObjectURL(url);
-        } else {
-            setImagePreview(null);
-        }
-    }, [imageFileList]);
 
-    const onSubmit = async (data: SellFormData) => {
+        if (imageFileList && imageFileList.length > 0) {
+
+            const file = imageFileList[0]
+
+            const url = URL.createObjectURL(file);
+
+            setImagePreview(url)
+
+            return () => URL.revokeObjectURL(url)
+
+        }
+    }, [imageFileList])
+
+    useEffect(() => {
+
+        if (!isEditMode) {
+            return;
+        }
+
+        const fetchProduct = async () => {
+
+            try {
+
+                const response = await api.get(`/product/${id}`);
+
+                const product =response.data.product;
+
+                reset({
+                    title: product.title,
+                    description: product.description,
+                    price: product.price,
+                    category: product.category
+                })
+
+
+                setImagePreview(product.image);
+
+            } catch (error) {
+
+                const err = error as AxiosError<ErrorResponse>
+
+                toast.error( err.response?.data.message ||"Failed to load product")
+            }
+        };
+
+        fetchProduct();
+
+    }, [id, isEditMode, reset])
+
+    const onSubmit = async (data: AddEditProductFormData) => {
 
         try {
 
-            await dispatch(createProduct(data)).unwrap()
-            toast.success("Product listed successfully!");
-            naviagte("/")
+            if(isEditMode){
+
+                await dispatch(updateProduct({id :  id!, productData : data})).unwrap()
+                toast.success("Product updated successfully!")
+
+            }else{
+
+                
+                
+                await dispatch(createProduct({ ...data, image: data.image! })).unwrap()
+                toast.success("Product listed successfully!")
+                
+            }
+
+            naviagte("/sell")
 
         } catch (error) {
 
@@ -63,7 +121,7 @@ function Sell() {
             </button>
 
             <div className="sell-card">
-                <h1 className="sell-title">Sell Product</h1>
+                <h1 className="sell-title">{isEditMode? "Edit Product": "Sell Product"}</h1>
 
                 <form className="sell-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="sell-form-grid">
@@ -142,8 +200,8 @@ function Sell() {
                                 {errors.image?.message && <p className="error-message">{errors.image.message}</p>}
                             </div>
 
-                            <button className="sell-button" type="submit" disabled={loading}>
-                                {loading ? "Listing product..." : "Sell Product"}
+                            <button className="sell-button" type="submit" disabled={loading}>{loading ? isEditMode ? "Updating product...": "Listing product..." : 
+                                isEditMode ? "Update Product": "Sell Product"}
                             </button>
                         </div>
                     </div>
@@ -153,4 +211,4 @@ function Sell() {
     );
 }
 
-export default Sell
+export default AddEditProduct

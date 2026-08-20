@@ -1,17 +1,18 @@
 import { z } from "zod";
 
-export const sellSchema = z.object({
-
+const commonProductFields = {
     title: z
-        .string()
-        .min(1, "Title is required"),
+    .string()
+    .trim()
+    .min(3, "Title must be at least 3 characters")
+    .regex(
+        /^(?=.*[a-zA-Z])[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/,
+        "Title must contain at least one letter and can only contain letters and numbers"
+    ),
 
     description: z
         .string()
-        .min(
-            20,
-            "Description must be at least 20 characters"
-        ),
+        .min(20, "Description must be at least 20 characters"),
 
     price: z
         .number("Price is required")
@@ -20,6 +21,13 @@ export const sellSchema = z.object({
     category: z
         .string()
         .min(1, "Category is required"),
+}
+
+
+
+export const AddProductSchema = z.object({
+
+    ...commonProductFields,
 
     image: z
         .instanceof(FileList)
@@ -27,4 +35,15 @@ export const sellSchema = z.object({
             (files) => files.length > 0,
             "Please select an image"
         )
+});
+
+
+
+export const EditProductSchema = z.object({
+
+    ...commonProductFields,
+
+    image: z
+        .instanceof(FileList)
+        .optional()
 });

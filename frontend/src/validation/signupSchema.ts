@@ -2,7 +2,14 @@ import { z } from "zod";
 
 export const signupSchema = z
   .object({
-    name: z.string().min(3, "Name must be at least 3 characters"),
+    name: z
+    .string()
+    .trim()
+    .min(3, "Name must be at least 3 characters")
+    .regex(
+      /^[a-zA-Z]+(?: [a-zA-Z]+)*$/,
+      "Name can only contain letters"
+    ),
 
     email: z.email("Please enter a valid email"),
 
