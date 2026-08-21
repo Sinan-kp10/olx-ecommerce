@@ -161,12 +161,18 @@ function AddEditProduct() {
 
                                 <div className="form-group">
                                     <label className="form-label">Category</label>
-                                    <input
-                                        className="sell-input"
-                                        type="text"
-                                        placeholder="e.g. Mobiles, Laptops"
-                                        {...register("category")}
-                                    />
+                                     <select className="sell-input"{...register("category")}>
+                                        <option value="" disabled>Select Category</option>
+                                        <option value="Mobiles">Mobiles</option>
+                                        <option value="Laptops">Laptops</option>
+                                        <option value="Cars">Cars</option>
+                                        <option value="Bikes">Bikes</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Furniture">Furniture</option>
+                                        <option value="Fashion">Fashion</option>
+                                        <option value="Books">Books</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                     {errors.category?.message && <p className="error-message">{errors.category.message}</p>}
                                 </div>
                             </div>

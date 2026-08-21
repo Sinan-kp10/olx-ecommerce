@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../store/store";
 import { deleteProduct } from "../../feature/product/productThunk"
 import Swal from "sweetalert2"
+import "./MyProductCard.css"
 
 function MyProductCard({ product }: Productprops) {
 
@@ -46,23 +47,32 @@ function MyProductCard({ product }: Productprops) {
     }
 
     return (
-        <div>
+        <div className="my-product-card">
 
-            <img src={product.image} alt={product.title}width="200"/>
+            <div className="my-product-card-image-wrapper">
+                <img className="my-product-card-image" src={product.image} alt={product.title} />
+            </div>
 
-            <h2>{product.title}</h2>
+            <div className="my-product-card-info">
+                <div className="my-product-card-header">
+                    <p className="my-product-card-price">₹{product.price.toLocaleString("en-IN")}</p>
+                    <span className="my-product-card-category">{product.category}</span>
+                </div>
 
-            <p>{product.description}</p>
+                <h2 className="my-product-card-title">{product.title}</h2>
 
-            <p>₹{product.price}</p>
+                <p className="my-product-card-desc">{product.description}</p>
 
-            <p>{product.category}</p>
-
-            <Link to={`/sell/product/edit/${product._id}`}>Edit</Link>
-            <button onClick={handleDelete} disabled={loading}>{loading ? "Deleting..." : "Delete"}</button>
+                <div className="my-product-card-actions">
+                    <Link to={`/sell/product/edit/${product._id}`} className="my-product-card-edit-btn">Edit</Link>
+                    <button onClick={handleDelete} disabled={loading} className="my-product-card-delete-btn">
+                        {loading ? "Deleting..." : "Delete"}
+                    </button>
+                </div>
+            </div>
 
         </div>
     );
 }
 
-export default MyProductCard;
+export default MyProductCard;

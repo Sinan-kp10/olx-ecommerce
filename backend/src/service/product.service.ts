@@ -83,7 +83,7 @@ export const updateProduct = async(productId : string, productData:{ title: stri
 
 export const deleteProduct = async (productId : string, userId :string)=>{
 
-    const product = await Product.findByIdAndDelete({
+    const product = await Product.findOneAndDelete({
         _id : productId,
         seller : userId
     })
