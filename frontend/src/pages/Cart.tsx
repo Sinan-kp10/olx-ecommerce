@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../store/store"
 import { useEffect } from "react"
-import { getCart } from "../feature/cart/cartThunk"
+import { getCart, removeFromCart } from "../feature/cart/cartThunk"
 import { toast } from "react-toastify"
 import Loading from "../component/loading/Loading"
+import Swal from "sweetalert2"
 
 function Cart(){
 
@@ -25,6 +26,33 @@ function Cart(){
         }
         fetchCart()
     },[dispatch])
+
+    const handleRemove = async (productId: string) => {
+
+        const result = await Swal.fire({
+            title: "Remove product?",
+            text: "Do you want to remove this product from your cart?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, remove it",
+            cancelButtonText: "Cancel"
+        });
+
+        if (!result.isConfirmed) {
+            return;
+        }
+
+        try {
+
+            await dispatch(removeFromCart(productId)).unwrap();
+
+            toast.success("Product removed from cart");
+
+        } catch (error) {
+
+            toast.error(error as string);
+        }
+    }
 
     const total = cart?.items.reduce((sum, item) => sum + item.product.price,0) ?? 0
 
@@ -50,6 +78,8 @@ function Cart(){
                                 <p>{item.product.description}</p>
 
                                 <strong>₹{item.product.price}</strong>
+
+                                <button onClick={()=> handleRemove(item.product._id)}>remove</button>
                             </div>
                         </div>
                     ))}

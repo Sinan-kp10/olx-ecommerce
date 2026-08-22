@@ -67,3 +67,32 @@ export const addToCart = async(productId : string, userId : string)=>{
 
 
 }
+
+export const removeFromCart = async ( productId: string, userId: string) => {
+
+    const cart = await Cart.findOne({
+        user: userId
+    });
+
+    if (!cart) {
+        throw new Error("Cart not found");
+    }
+
+    const productExists = cart.items.some(
+        item => item.product.toString() === productId
+    )
+
+    if(!productExists){
+        throw new Error("Product is not in your cart");
+    }
+
+    cart.items = cart.items.filter(
+        item => item.product.toString() !== productId
+    );
+
+    await cart.save()
+
+    await cart.populate("items.product");
+
+    return cart
+};

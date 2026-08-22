@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Cart } from "../../types/cartTypes";
-import { addToCart, getCart } from "./cartThunk";
+import { addToCart, getCart, removeFromCart } from "./cartThunk";
 
 
 interface CartState {
@@ -54,6 +54,21 @@ const cartSlice = createSlice({
         builder.addCase(addToCart.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload as string || "Failed to add product to cart";
+        })
+
+        builder.addCase(removeFromCart.pending, (state) => {
+            state.loading = true
+            state.error = null
+        });
+
+        builder.addCase(removeFromCart.fulfilled, (state, action) => {
+            state.loading = false
+            state.cart = action.payload
+        })
+
+        builder.addCase(removeFromCart.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload as string || "Failed to remove product";
         })
     }
 });

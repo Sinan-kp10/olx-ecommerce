@@ -36,3 +36,19 @@ export const addToCart = createAsyncThunk("cart/addToCart",async (productId: str
         return rejectWithValue( err.response?.data.message ||"Failed to add product to cart")
     }
 })
+
+export const removeFromCart = createAsyncThunk("cart/removeFromCart",async (productId: string, { rejectWithValue }) => {
+
+    try {
+
+        const response = await api.delete(`/cart/remove/${productId}`)
+
+        return response.data.cart;
+
+    } catch (error) {
+
+        const err = error as AxiosError<ErrorResponse>;
+
+        return rejectWithValue(err.response?.data.message || "Failed to remove product from cart")
+    }
+})

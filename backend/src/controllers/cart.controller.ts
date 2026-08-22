@@ -1,5 +1,5 @@
 import { AuthRequest } from "../middleware/auth.middleware";
-import { addToCart, getCart } from "../service/cart.service";
+import { addToCart, getCart, removeFromCart } from "../service/cart.service";
 import { Response } from "express";
 
 export const getCartController = async ( req: AuthRequest, res: Response): Promise<void> => {
@@ -47,3 +47,31 @@ export const addToCartController = async ( req: AuthRequest, res: Response): Pro
         })
     }
 }
+
+export const removeFromCartController = async (
+    req: AuthRequest,
+    res: Response
+): Promise<void> => {
+
+    try {
+
+        const { productId } = req.params
+
+        const cart = await removeFromCart(productId as string, req.user!.userId)
+
+        res.status(200).json({
+            success: true,
+            message: "Product removed from cart",
+            cart
+        })
+
+    } catch (error) {
+
+        console.log("Remove from cart error:", error);
+
+        res.status(400).json({
+            success: false,
+            message: error instanceof Error? error.message : "Failed to remove product from cart"
+        });
+    }
+};
