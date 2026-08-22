@@ -2,7 +2,8 @@ import express from "express"
 import cors from "cors"
 import authRoute from "../src/route/auth.routes"
 import productRoute from "../src/route/product.routes"
-import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser"
+import cartRoute from "../src/route/cart.routes";
 
 
 
@@ -20,6 +21,7 @@ app.use(cookieParser())
 
 app.use("/", authRoute)
 app.use("/", productRoute)
+app.use("/", cartRoute);
 
 
 export default app

@@ -18,7 +18,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     if (!token) {
         res.status(401).json({
             success: false,
-            message: "Authentication token is required"
+            message: "Login required"
         })
         return
     }

@@ -1,7 +1,27 @@
+import { useDispatch, useSelector } from "react-redux";
 import type { Productprops } from "../../types/productTypes";
 import "./ProductInfo.css";
+import type { AppDispatch, RootState } from "../../store/store";
+import { addToCart } from "../../feature/cart/cartThunk";
+import { toast } from "react-toastify";
 
 function ProductInfo({product} : Productprops){
+
+    const dispatch = useDispatch<AppDispatch>()
+    const {loading} = useSelector((state : RootState)=> state.cart)
+
+    const handleAddToCart = async()=>{
+
+        try {
+
+            await dispatch(addToCart(product._id)).unwrap()
+            toast.success("Product added to cart")
+
+        } catch (error) {
+            toast.error(error as string)
+            
+        }
+    }
 
     return(
 
@@ -25,6 +45,8 @@ function ProductInfo({product} : Productprops){
                     <p className="product-info-desc">{product.description}</p>
                 </div>
             </div>
+
+            <button onClick={handleAddToCart}>{loading ? "Adding" :"Add to Cart" }</button>
 
         </div>
 

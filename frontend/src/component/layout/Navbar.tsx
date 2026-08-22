@@ -8,9 +8,12 @@ import "./Navbar.css";
 function Navbar() {
 
     const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+    const cart = useSelector((state: RootState) => state.cart.cart)
 
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
+
+    const cartCount = cart?.items.length ?? 0;
 
     const handleClick = async () => {
 
@@ -26,8 +29,6 @@ function Navbar() {
 
     }
 
-
-
     return (
         <nav className="navbar">
             <div className="navbar-container container">
@@ -37,6 +38,7 @@ function Navbar() {
 
                 <div className="navbar-menu">
                     <Link to="/" className="navbar-link">Products</Link>
+                    <Link to="/cart">🛒 Cart {cartCount > 0 && `(${cartCount})`}</Link>
                     <Link to="/sell" className="navbar-link sell-link">Sell</Link>
 
                     {isAuthenticated ? (

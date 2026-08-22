@@ -11,6 +11,7 @@ import { checkAuth } from "../feature/auth/authThunk";
 import MainLayout from "../component/layout/MainLayout";
 import SellProducts from "../pages/SellProducts";
 import AddEditProduct from "../pages/AddEditProduct";
+import Cart from "../pages/Cart";
 
 
 
@@ -34,13 +35,14 @@ function AppRoute(){
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Product />}></Route>
                     <Route path="/product/:id" element={<ProductDetails />}></Route>
+                    <Route path="/cart" element={<Cart />} />
 
                     <Route element={<ProtectedRoute />}>
                 
                         <Route path="/sell" element={<SellProducts />}></Route>
                         <Route path="/sell/product" element={<AddEditProduct />}></Route>
                         <Route path="/sell/product/edit/:id" element={<AddEditProduct />}/>
-
+                        
 
                     </Route>
 
