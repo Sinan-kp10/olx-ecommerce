@@ -58,10 +58,6 @@ function SellProducts() {
                 {!loading && (!products || products.length === 0) && (
                     <div className="empty-products-wrapper">
                         <h3 className="empty-products-title">No Listings Yet</h3>
-
-                        <Link to="/sell/product" className="sell-product-btn">
-                            Sell Product Now
-                        </Link>
                     </div>
                 )}
 

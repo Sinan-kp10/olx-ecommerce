@@ -38,7 +38,15 @@ function Navbar() {
 
                 <div className="navbar-menu">
                     <Link to="/" className="navbar-link">Products</Link>
-                    <Link to="/cart">🛒 Cart {cartCount > 0 && `(${cartCount})`}</Link>
+                    <Link to="/cart" className="navbar-link navbar-cart">
+                        <div className="cart-icon-container">
+                            <span className="cart-icon" aria-hidden="true"></span>
+                            {cartCount > 0 && (
+                                <span className="cart-badge">{cartCount}</span>
+                            )}
+                        </div>
+                        <span className="cart-text">Cart</span>
+                    </Link>
                     <Link to="/sell" className="navbar-link sell-link">Sell</Link>
 
                     {isAuthenticated ? (

@@ -71,15 +71,7 @@
   justify-content: center;
   text-align: center;
   padding: 5rem 1.5rem;
-  background-color: var(--bg-card);
-  border: 2px dashed var(--border-color);
-  border-radius: 16px;
   margin-top: 1rem;
-  transition: border-color var(--transition-speed) ease;
-}
-
-.empty-products-wrapper:hover {
-  border-color: var(--accent-teal);
 }
 
 .empty-products-icon {

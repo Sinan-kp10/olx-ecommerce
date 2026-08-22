@@ -192,3 +192,32 @@
     flex: none;
   }
 }
+
+.product-info-container button {
+  grid-column: span 2;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all var(--transition-speed) ease;
+}
+
+.product-info-container button:hover {
+  background-color: var(--accent-teal);
+  box-shadow: 0 4px 12px rgba(0, 164, 159, 0.2);
+}
+
+.product-info-container button:active {
+  background-color: var(--primary-active);
+}
+
+@media (max-width: 992px) {
+  .product-info-container button {
+    grid-column: span 1;
+  }
+}
