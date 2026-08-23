@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "./Checkout.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { AppDispatch, RootState } from "../store/store";
@@ -56,66 +57,81 @@ function Checkout() {
     if (!cart || cart.items.length === 0) {
 
         return (
-            <div className="checkout-page">
+            <div className="checkout-page empty">
+                <div className="checkout-empty-card">
+                    <h2>Your cart is empty</h2>
 
-                <h2>Your cart is empty</h2>
-
-                <button onClick={() => navigate("/cart")}>
-                    Go to Cart
-                </button>
-
+                    <button className="checkout-back-btn" onClick={() => navigate("/cart")}>
+                        Go to Cart
+                    </button>
+                </div>
             </div>
         )
     }
 
     return (
-        <div className="checkout-page">
+        <div className="checkout-page-container">
 
             <h1>Checkout</h1>
 
-            <div >
+            <div className="checkout-layout">
 
-                {cart.items.map((item) => (
+                <div className="checkout-items-section">
+                    <div className="checkout-items-list">
+                        {cart.items.map((item) => (
 
-                    <div key={item.product._id}>
+                            <div key={item.product._id} className="checkout-item">
 
-                        <img
-                            src={item.product.image}
-                            alt={item.product.title}
-                        />
+                                <img src={item.product.image} alt={item.product.title} className="checkout-item-image"/>
 
-                        <div>
-                            <h3>{item.product.title}</h3>
+                                <div className="checkout-item-info">
+                                    <h3>{item.product.title}</h3>
 
-                            <p>
-                                {item.product.category}
-                            </p>
+                                    <p className="checkout-item-category">
+                                        {item.product.category}
+                                    </p>
 
-                            <strong>
-                                ₹{item.product.price}
-                            </strong>
+                                    <strong className="checkout-item-price">
+                                        ₹{item.product.price}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        ))}
+                    </div>
+                </div>
+
+                <div className="checkout-summary-section">
+                    <div className="checkout-summary-card">
+                        <h3 className="summary-title">Order Summary</h3>
+
+                        <div className="summary-items-list">
+                            {cart.items.map((item) => (
+                                <div key={item.product._id} className="summary-item-row">
+                                    <span className="summary-item-name">{item.product.title}</span>
+                                    <span className="summary-item-price">₹{item.product.price}</span>
+                                </div>
+                            ))}
                         </div>
 
+                        <div className="summary-delivery-row">
+                            <span>Delivery</span>
+                            <span className="free-delivery-badge">Free</span>
+                        </div>
+
+                        <hr className="summary-divider" />
+
+                        <h2 className="summary-total">
+                            <span>Total:</span>
+                            <span>₹{cart?.totalAmount}</span>
+                        </h2>
+
+                        <button className="place-order-btn" onClick={handlePlaceOrder} disabled={orderLoading}>
+                            {orderLoading? "Placing Order..." : "Place Order"}
+                        </button>
                     </div>
-
-                ))}
-
-            </div>
-
-            <div >
-
-                <h2>
-                    Total: ₹{cart?.totalAmount}
-                </h2>
-
-                <button
-                    onClick={handlePlaceOrder}
-                    disabled={orderLoading}
-                >
-                    {orderLoading
-                        ? "Placing Order..."
-                        : "Place Order"}
-                </button>
+                </div>
 
             </div>
 

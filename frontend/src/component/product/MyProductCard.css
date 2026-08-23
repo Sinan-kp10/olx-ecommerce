@@ -110,13 +110,13 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  background-color: transparent;
+  background-color: rgba(0, 164, 159, 0.02);
   color: var(--accent-teal);
-  border: 1.5px solid var(--accent-teal);
-  border-radius: 6px;
+  border: 1.5px solid rgba(0, 164, 159, 0.3);
+  border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1rem;
   cursor: pointer;
   transition: all var(--transition-speed) ease;
   text-align: center;
@@ -124,20 +124,27 @@
 
 .my-product-card-edit-btn:hover {
   background-color: var(--accent-teal);
+  border-color: var(--accent-teal);
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 164, 159, 0.2);
+  transform: translateY(-1px);
+}
+
+.my-product-card-edit-btn:active {
+  transform: translateY(0);
 }
 
 .my-product-card-delete-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background-color: rgba(225, 29, 72, 0.02);
   color: var(--error-color);
-  border: 1.5px solid var(--error-color);
-  border-radius: 6px;
+  border: 1.5px solid rgba(225, 29, 72, 0.3);
+  border-radius: 8px;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1rem;
   cursor: pointer;
   transition: all var(--transition-speed) ease;
   text-align: center;
@@ -145,12 +152,58 @@
 
 .my-product-card-delete-btn:hover:not(:disabled) {
   background-color: var(--error-color);
+  border-color: var(--error-color);
   color: #ffffff;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
+  transform: translateY(-1px);
+}
+
+.my-product-card-delete-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .my-product-card-delete-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Sold badge style overlay */
+.my-product-card-sold-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: var(--error-color);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(225, 29, 72, 0.35);
+  z-index: 10;
+  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.my-product-card.sold .my-product-card-image {
+  filter: grayscale(30%) brightness(95%);
+}
+
+/* Actions single-child (Sold item layout) spacing */
+.my-product-card-actions > :only-child {
+  grid-column: span 2;
+  width: 100%;
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 576px) {

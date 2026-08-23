@@ -47,10 +47,13 @@ function MyProductCard({ product }: Productprops) {
     }
 
     return (
-        <div className="my-product-card">
+        <div className={`my-product-card ${product.isSold ? "sold" : ""}`}>
 
             <div className="my-product-card-image-wrapper">
                 <img className="my-product-card-image" src={product.image} alt={product.title} />
+                {product.isSold && (
+                    <span className="my-product-card-sold-badge">Sold</span>
+                )}
             </div>
 
             <div className="my-product-card-info">
