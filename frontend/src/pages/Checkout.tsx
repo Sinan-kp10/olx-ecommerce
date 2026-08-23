@@ -72,6 +72,10 @@ function Checkout() {
     return (
         <div className="checkout-page-container">
 
+            <button onClick={() => navigate(-1)} className="back-button">
+                ← Back
+            </button>
+
             <h1>Checkout</h1>
 
             <div className="checkout-layout">
@@ -87,12 +91,12 @@ function Checkout() {
                                 <div className="checkout-item-info">
                                     <h3>{item.product.title}</h3>
 
-                                    <p className="checkout-item-category">
-                                        {item.product.category}
+                                    <p className="checkout-item-desc">
+                                        {item.product.description}
                                     </p>
 
                                     <strong className="checkout-item-price">
-                                        ₹{item.product.price}
+                                        ₹{item.product.price.toLocaleString("en-IN")}
                                     </strong>
                                 </div>
 
@@ -110,7 +114,7 @@ function Checkout() {
                             {cart.items.map((item) => (
                                 <div key={item.product._id} className="summary-item-row">
                                     <span className="summary-item-name">{item.product.title}</span>
-                                    <span className="summary-item-price">₹{item.product.price}</span>
+                                    <span className="summary-item-price">₹{item.product.price.toLocaleString("en-IN")}</span>
                                 </div>
                             ))}
                         </div>
@@ -124,7 +128,7 @@ function Checkout() {
 
                         <h2 className="summary-total">
                             <span>Total:</span>
-                            <span>₹{cart?.totalAmount}</span>
+                            <span>₹{cart?.totalAmount?.toLocaleString("en-IN")}</span>
                         </h2>
 
                         <button className="place-order-btn" onClick={handlePlaceOrder} disabled={orderLoading}>

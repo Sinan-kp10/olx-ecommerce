@@ -6,7 +6,7 @@ import { placeOrder } from "../service/order.service";
 export const getProducts = async(req:Request, res: Response): Promise<void>=>{
 
     try {
-
+        
         const products = await getAllProducts()
 
         res.status(200).json({

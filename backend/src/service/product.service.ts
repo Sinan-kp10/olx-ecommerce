@@ -61,7 +61,7 @@ export const updateProduct = async(productId : string, productData:{ title: stri
         throw new Error("Product not found or you are not the owner");
     }
 
-    if(product.title === productData.title && product.description && productData.description && product.price === productData.price && product.category === productData.category){
+    if (!file && product.title === productData.title && product.description === productData.description && product.price === productData.price && product.category === productData.category){
         throw new Error("No changes to update.")
     }
 

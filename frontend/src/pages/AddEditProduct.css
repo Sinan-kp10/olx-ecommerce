@@ -6,29 +6,7 @@
   align-items: center;
 }
 
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 1.5rem;
-  transition: all var(--transition-speed) ease;
-  align-self: flex-start;
-}
 
-.back-button:hover {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-  background-color: rgba(0, 164, 159, 0.05);
-  transform: translateX(-4px);
-}
 
 .sell-card {
   background-color: var(--bg-card);

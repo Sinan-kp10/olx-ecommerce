@@ -86,7 +86,7 @@ function Cart() {
                                             <p>{item.product.description}</p>
                                         </div>
                                         <div className="cart-item-footer">
-                                            <strong>₹{item.product.price}</strong>
+                                            <strong>₹{item.product.price.toLocaleString("en-IN")}</strong>
                                             <button className="remove-btn" onClick={() => handleRemove(item.product._id)}>remove</button>
                                         </div>
                                     </div>
@@ -102,12 +102,12 @@ function Cart() {
                                 {cart?.items.map((item) => (
                                     <div key={item.product._id} className="summary-item-row">
                                         <span className="summary-item-name">{item.product.title}</span>
-                                        <span className="summary-item-price">₹{item.product.price}</span>
+                                        <span className="summary-item-price">₹{item.product.price.toLocaleString("en-IN")}</span>
                                     </div>
                                 ))}
                             </div>
                             <hr className="summary-divider" />
-                            <h2>Total: ₹{cart?.totalAmount}</h2>
+                            <h2>Total: ₹{cart?.totalAmount?.toLocaleString("en-IN")}</h2>
                             <button className="checkout-btn" onClick={()=> navigate("/checkout")}>Proceed to Checkout</button>
                         </div>
                     </div>

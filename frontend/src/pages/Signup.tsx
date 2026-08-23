@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../store/store"
 import { useForm } from "react-hook-form"
@@ -26,6 +27,9 @@ function Signup(){
     const {register, handleSubmit, formState: {errors}} = useForm<SignupFormData>({ resolver : zodResolver(signupSchema)})
 
     const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onSubmit = async(data : SignupFormData)=>{
 
@@ -62,12 +66,36 @@ function Signup(){
                     </div>
 
                     <div className="form-group">
-                        <input className="auth-input" type="password" placeholder="Password" {...register("password")} />
+                        <div className="password-input-wrapper">
+                            <input 
+                                className="auth-input" 
+                                type={showPassword ? "text" : "password"} 
+                                placeholder="Password" 
+                                {...register("password")} 
+                            />
+                            <button 
+                                type="button" 
+                                className={`password-toggle-btn ${showPassword ? "visible" : ""}`} 
+                                onClick={() => setShowPassword(!showPassword)}
+                            />
+                        </div>
                         {errors.password?.message && <p className="error-message">{errors.password.message}</p>}
                     </div>
 
                     <div className="form-group">
-                        <input className="auth-input" type="password" placeholder="Confirm passsword" {...register("confirmPassword")} />
+                        <div className="password-input-wrapper">
+                            <input 
+                                className="auth-input" 
+                                type={showConfirmPassword ? "text" : "password"} 
+                                placeholder="Confirm password" 
+                                {...register("confirmPassword")} 
+                            />
+                            <button 
+                                type="button" 
+                                className={`password-toggle-btn ${showConfirmPassword ? "visible" : ""}`} 
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            />
+                        </div>
                         {errors.confirmPassword?.message && <p className="error-message">{errors.confirmPassword.message}</p>}
                     </div>
 

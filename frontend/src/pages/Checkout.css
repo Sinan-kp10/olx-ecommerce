@@ -4,7 +4,11 @@
   margin: 0 auto;
   padding: 2rem 1.5rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
+
+
 
 .checkout-page-container h1 {
   font-size: clamp(1.6rem, 4vw, 2rem);
@@ -133,10 +137,23 @@
 }
 
 .checkout-item-category {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem 0;
+  text-transform: capitalize;
+}
+
+.checkout-item-desc {
   font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0 0 0.75rem 0;
-  text-transform: capitalize;
+  line-height: 1.4;
+  max-height: 2.8em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .checkout-item-price {

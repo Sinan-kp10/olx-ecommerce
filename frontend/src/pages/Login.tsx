@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../store/store"
 import {useForm} from "react-hook-form"
@@ -23,6 +24,8 @@ function Login (){
     const {register, handleSubmit, formState : {errors}} = useForm<LoginFormData>({resolver : zodResolver(loginSchema)})
 
     const navigate = useNavigate()
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async(data : LoginFormData) =>{
 
@@ -53,7 +56,19 @@ function Login (){
                     </div>
 
                     <div className="form-group">
-                        <input className="auth-input"  type="password" placeholder="Password" {...register("password")} />
+                        <div className="password-input-wrapper">
+                            <input 
+                                className="auth-input"  
+                                type={showPassword ? "text" : "password"} 
+                                placeholder="Password" 
+                                {...register("password")} 
+                            />
+                            <button 
+                                type="button" 
+                                className={`password-toggle-btn ${showPassword ? "visible" : ""}`} 
+                                onClick={() => setShowPassword(!showPassword)}
+                            />
+                        </div>
                         {errors.password?.message && <p className="error-message">{errors.password.message}</p>}
                     </div>
 
