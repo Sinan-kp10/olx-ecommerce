@@ -170,7 +170,6 @@ function AddEditProduct() {
                                         <option value="Electronics">Electronics</option>
                                         <option value="Furniture">Furniture</option>
                                         <option value="Fashion">Fashion</option>
-                                        <option value="Books">Books</option>
                                         <option value="Other">Other</option>
                                     </select>
                                     {errors.category?.message && <p className="error-message">{errors.category.message}</p>}
@@ -194,14 +193,7 @@ function AddEditProduct() {
                                             Choose File
                                         </label>
                                     )}
-                                    <input
-                                        id="image-upload"
-                                        className="sell-file-input"
-                                        type="file"
-                                        accept="image/*"
-                                        style={{ display: "none" }}
-                                        {...register("image")}
-                                    />
+                                    <input id="image-upload" className="sell-file-input" type="file"  accept="image/*" style={{ display: "none" }} {...register("image")}/>
                                 </div>
                                 {errors.image?.message && <p className="error-message">{errors.image.message}</p>}
                             </div>

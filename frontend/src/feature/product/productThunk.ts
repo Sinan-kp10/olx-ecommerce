@@ -5,10 +5,10 @@ import type { AxiosError } from "axios";
 
 
 
-export const getProducts = createAsyncThunk("product/getProducts", async(_, {rejectWithValue})=>{
+export const getProducts = createAsyncThunk("product/getProducts", async(category: string | undefined, {rejectWithValue})=>{
     try {
         
-        const response = await api.get("/")
+        const response = await api.get("/", {params : {category}})
 
         return response.data.products
 
