@@ -6,8 +6,8 @@ import { placeOrder } from "../service/order.service";
 export const getProducts = async(req:Request, res: Response): Promise<void>=>{
 
     try {
-        
-        const products = await getAllProducts()
+        const { category } = req.query
+        const products = await getAllProducts( category as string | undefined)
 
         res.status(200).json({
             success : true,

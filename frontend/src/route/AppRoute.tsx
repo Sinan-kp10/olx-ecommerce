@@ -34,13 +34,13 @@ function AppRoute(){
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<Product />}></Route>
                     <Route path="/product/:id" element={<ProductDetails />}></Route>
-                    <Route path="/cart" element={<Cart />} />
 
                     <Route element={<ProtectedRoute />}>
                 
                         <Route path="/sell" element={<SellProducts />}></Route>
                         <Route path="/sell/product" element={<AddEditProduct />}></Route>
                         <Route path="/sell/product/edit/:id" element={<AddEditProduct />}/>
+                        <Route path="/cart" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
                         <Route path="/order-success" element={<OrderSuccess />} />
 

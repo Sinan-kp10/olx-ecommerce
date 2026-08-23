@@ -2,9 +2,15 @@ import Product from "../models/Product.model."
 import { uploadImage } from "./cloudinary.service"
 import "multer"
 
-export const getAllProducts = async()=>{
+export const getAllProducts = async(  category?: string)=>{
 
-    const products = await Product.find({isSold : false}).sort({createdAt : -1})
+    const filter: { category?: string, isSold : boolean } = { isSold: false}
+
+    if (category) {
+        filter.category = category;
+    }
+
+    const products = await Product.find(filter).sort({createdAt : -1})
 
     return products
 }
