@@ -6,7 +6,7 @@ export const getCartController = async ( req: AuthRequest, res: Response): Promi
 
     try {
         
-        const cart = await  getCart(req.user!.userId)
+        const cart = await getCart(req.user!.userId)
 
         res.status(200).json({
             success: true,
@@ -48,10 +48,7 @@ export const addToCartController = async ( req: AuthRequest, res: Response): Pro
     }
 }
 
-export const removeFromCartController = async (
-    req: AuthRequest,
-    res: Response
-): Promise<void> => {
+export const removeFromCartController = async (req: AuthRequest, res: Response): Promise<void> => {
 
     try {
 

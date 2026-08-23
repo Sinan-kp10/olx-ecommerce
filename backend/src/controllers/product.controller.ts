@@ -1,6 +1,7 @@
 import { createProduct, deleteProduct, getAllProducts, getMyProducts, getProductById, updateProduct } from "../service/product.service"
 import { Request, Response } from "express";
 import type { AuthRequest } from "../middleware/auth.middleware";
+import { placeOrder } from "../service/order.service";
 
 export const getProducts = async(req:Request, res: Response): Promise<void>=>{
 
@@ -151,3 +152,25 @@ export const deleteProductController = async(req:AuthRequest, res: Response): Pr
     }
 }
 
+export const placeOrderController = async (req: AuthRequest, res: Response): Promise<void> => {
+
+    try {
+
+        const order = await placeOrder(req.user!.userId)
+
+        res.status(201).json({
+            success: true,
+            message: "Order placed successfully",
+            order
+        });
+
+    } catch (error) {
+
+        console.log("Place order error:", error);
+
+        res.status(400).json({
+            success: false,
+            message: error instanceof Error ? error.message : "Failed to place order"
+        })
+    }
+}

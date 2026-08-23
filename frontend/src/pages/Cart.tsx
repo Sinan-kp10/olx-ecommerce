@@ -6,11 +6,13 @@ import { toast } from "react-toastify"
 import Loading from "../component/loading/Loading"
 import Swal from "sweetalert2"
 import "./Cart.css"
+import { useNavigate } from "react-router-dom"
 
 function Cart() {
 
     const dispatch = useDispatch<AppDispatch>()
     const { cart, loading } = useSelector((state: RootState) => state.cart)
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -55,8 +57,6 @@ function Cart() {
         }
     }
 
-    const total = cart?.items.reduce((sum, item) => sum + item.product.price, 0) ?? 0
-
     return (
         <div className="cart-page-container">
             <h1>My Cart</h1>
@@ -65,7 +65,7 @@ function Cart() {
 
             {!loading && (!cart || cart.items.length === 0) ? (
                 <div className="cart-empty">
-                    <h2>Your Cart is Empty</h2>
+                    <h3>Your Cart is Empty</h3>
                 </div>
             ) : (
                 <div className="cart-layout">
@@ -107,8 +107,8 @@ function Cart() {
                                 ))}
                             </div>
                             <hr className="summary-divider" />
-                            <h2>Total: ₹{total}</h2>
-                            <button className="checkout-btn">Proceed to Checkout</button>
+                            <h2>Total: ₹{cart?.totalAmount}</h2>
+                            <button className="checkout-btn" onClick={()=> navigate("/checkout")}>Proceed to Checkout</button>
                         </div>
                     </div>
                 </div>

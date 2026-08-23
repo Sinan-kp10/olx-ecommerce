@@ -64,7 +64,10 @@ function MyProductCard({ product }: Productprops) {
                 <p className="my-product-card-desc">{product.description}</p>
 
                 <div className="my-product-card-actions">
-                    <Link to={`/sell/product/edit/${product._id}`} className="my-product-card-edit-btn">Edit</Link>
+                    {!product.isSold && (
+                        <Link to={`/sell/product/edit/${product._id}`} className="my-product-card-edit-btn">Edit</Link>
+                    )}
+
                     <button onClick={handleDelete} disabled={loading} className="my-product-card-delete-btn">
                         {loading ? "Deleting..." : "Delete"}
                     </button>
@@ -75,4 +78,4 @@ function MyProductCard({ product }: Productprops) {
     );
 }
 
-export default MyProductCard;
+export default MyProductCard;

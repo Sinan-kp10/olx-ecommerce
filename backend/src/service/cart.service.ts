@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-import Product from "../models/Product.model."
+import Product, { IProduct } from "../models/Product.model."
 import Cart from "../models/cart.model";
 
 
 export const getCart = async(userId: string)=>{
     const cart = await Cart.findOne({
         user :userId
-    }).populate("items.product")
+    }).populate<{ items: { product: IProduct }[] }>("items.product")
 
     if(!cart){
         return{
@@ -14,7 +14,11 @@ export const getCart = async(userId: string)=>{
             items : []
         }
     }
-    return cart
+    const totalAmount = cart.items.reduce((total, item) => total + item.product.price,0)
+    return {
+        ...cart.toObject(),
+        totalAmount
+    }
 }
 
 
@@ -53,7 +57,7 @@ export const addToCart = async(productId : string, userId : string)=>{
 
     const alreadyInCart = cart.items.some( item => item.product.toString()=== productId)
 
-    if (alreadyInCart) {
+    if(alreadyInCart){
         throw new Error("Product is already in your cart")
     }
 

@@ -12,9 +12,8 @@ import MainLayout from "../component/layout/MainLayout";
 import SellProducts from "../pages/SellProducts";
 import AddEditProduct from "../pages/AddEditProduct";
 import Cart from "../pages/Cart";
-
-
-
+import Checkout from "../pages/Checkout";
+import OrderSuccess from "../pages/OrderSuccess";
 
 
 function AppRoute(){
@@ -42,7 +41,10 @@ function AppRoute(){
                         <Route path="/sell" element={<SellProducts />}></Route>
                         <Route path="/sell/product" element={<AddEditProduct />}></Route>
                         <Route path="/sell/product/edit/:id" element={<AddEditProduct />}/>
-                        
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/order-success" element={<OrderSuccess />} />
+
+
 
                     </Route>
 
