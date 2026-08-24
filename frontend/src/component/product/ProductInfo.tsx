@@ -38,7 +38,7 @@ function ProductInfo({product} : Productprops){
             <div className="product-info-details-col">
                 <h1 className="product-info-title">{product.title}</h1>
                 <span className="product-info-category">{product.category}</span>
-                <h2 className="product-info-price">₹{product.price.toLocaleString("en-IN")}</h2>
+                <h2 className="product-info-price">₹{product.price?.toLocaleString("en-IN") ?? "0"}</h2>
                 
                 <div className="product-info-desc-section">
                     <h3>Description</h3>

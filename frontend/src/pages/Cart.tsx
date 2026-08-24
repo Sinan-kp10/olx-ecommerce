@@ -68,50 +68,58 @@ function Cart() {
                     <h3>Your Cart is Empty</h3>
                 </div>
             ) : (
-                <div className="cart-layout">
-                    <div className="cart-items-section">
+                cart && (
+                    <div className="cart-layout">
+                        <div className="cart-items-section">
 
-                        <div className="cart-items-list">
-                            {cart?.items.map((item) => (
-                                <div key={item.product._id} className="cart-item">
-                                    <img
-                                        src={item.product.image}
-                                        alt={item.product.title}
-                                        className="cart-item-image"
-                                    />
+                            <div className="cart-items-list">
+                                {cart.items.map((item) => {
+                                    if (!item.product) return null;
+                                    return (
+                                        <div key={item.product._id} className="cart-item">
+                                            <img
+                                                src={item.product.image}
+                                                alt={item.product.title}
+                                                className="cart-item-image"
+                                            />
 
-                                    <div className="cart-item-info">
-                                        <div>
-                                            <h3>{item.product.title}</h3>
-                                            <p>{item.product.description}</p>
+                                            <div className="cart-item-info">
+                                                <div>
+                                                    <h3>{item.product.title}</h3>
+                                                    <p>{item.product.description}</p>
+                                                </div>
+                                                <div className="cart-item-footer">
+                                                    <strong>₹{item.product.price?.toLocaleString("en-IN") ?? "0"}</strong>
+                                                    <button className="remove-btn" onClick={() => handleRemove(item.product._id)}>remove</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="cart-item-footer">
-                                            <strong>₹{item.product.price.toLocaleString("en-IN")}</strong>
-                                            <button className="remove-btn" onClick={() => handleRemove(item.product._id)}>remove</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="cart-summary-section">
-                        <div className="cart-summary-card">
-                            <h3 className="summary-title">Order Summary</h3>
-                            <div className="summary-items-list">
-                                {cart?.items.map((item) => (
-                                    <div key={item.product._id} className="summary-item-row">
-                                        <span className="summary-item-name">{item.product.title}</span>
-                                        <span className="summary-item-price">₹{item.product.price.toLocaleString("en-IN")}</span>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
-                            <hr className="summary-divider" />
-                            <h2>Total: ₹{cart?.totalAmount?.toLocaleString("en-IN")}</h2>
-                            <button className="checkout-btn" onClick={()=> navigate("/checkout")}>Proceed to Checkout</button>
+                        </div>
+
+                        <div className="cart-summary-section">
+                            <div className="cart-summary-card">
+                                <h3 className="summary-title">Order Summary</h3>
+                                <div className="summary-items-list">
+                                    {cart.items.map((item) => {
+                                        if (!item.product) return null;
+                                        return (
+                                            <div key={item.product._id} className="summary-item-row">
+                                                <span className="summary-item-name">{item.product.title}</span>
+                                                <span className="summary-item-price">₹{item.product.price?.toLocaleString("en-IN") ?? "0"}</span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                                <hr className="summary-divider" />
+                                <h2>Total: ₹{cart.totalAmount?.toLocaleString("en-IN") ?? "0"}</h2>
+                                <button className="checkout-btn" onClick={()=> navigate("/checkout")}>Proceed to Checkout</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                )
             )}
         </div>
     )

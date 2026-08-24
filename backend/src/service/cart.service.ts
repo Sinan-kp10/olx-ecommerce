@@ -52,7 +52,7 @@ export const addToCart = async(productId : string, userId : string)=>{
             ]
         })
 
-        return cart
+        return getCart(userId);
     }
 
     const alreadyInCart = cart.items.some( item => item.product.toString()=== productId)
@@ -67,7 +67,7 @@ export const addToCart = async(productId : string, userId : string)=>{
 
     await cart.save()
 
-    return cart
+    return getCart(userId);
 
 
 }
@@ -96,7 +96,5 @@ export const removeFromCart = async ( productId: string, userId: string) => {
 
     await cart.save()
 
-    await cart.populate("items.product");
-
-    return cart
+    return getCart(userId);
 };

@@ -58,7 +58,7 @@ function MyProductCard({ product }: Productprops) {
 
             <div className="my-product-card-info">
                 <div className="my-product-card-header">
-                    <p className="my-product-card-price">₹{product.price.toLocaleString("en-IN")}</p>
+                    <p className="my-product-card-price">₹{product.price?.toLocaleString("en-IN") ?? "0"}</p>
                     <span className="my-product-card-category">{product.category}</span>
                 </div>
 

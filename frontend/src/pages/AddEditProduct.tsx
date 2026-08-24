@@ -7,7 +7,7 @@ import { createProduct, updateProduct } from "../feature/product/productThunk";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import "./AddEditProduct.css";
-import {  AddProductSchema, EditProductSchema } from "../validation/sellSchema";
+import { AddProductSchema, EditProductSchema } from "../validation/sellSchema";
 import api from "../Service/api";
 import type { AxiosError } from "axios";
 import type { ErrorResponse } from "../types/authTypes";
@@ -26,13 +26,14 @@ function AddEditProduct() {
     const dispatch = useDispatch<AppDispatch>()
 
     const { loading } = useSelector((state: RootState) => state.product)
-    const {id} = useParams()
+    const { user } = useSelector((state: RootState) => state.auth)
+    const { id } = useParams()
     const isEditMode = Boolean(id);
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<AddEditProductFormData>({ resolver: zodResolver(isEditMode ? EditProductSchema : AddProductSchema) });
 
     const naviagte = useNavigate()
-    
+
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const imageFileList = watch("image")
@@ -64,7 +65,14 @@ function AddEditProduct() {
 
                 const response = await api.get(`/product/${id}`);
 
-                const product =response.data.product;
+                const product = response.data.product;
+
+                const currentUserId = user?.id as string
+
+                if (product && product.seller !== currentUserId) {
+                    naviagte("/sell");
+                    return;
+                }
 
                 reset({
                     title: product.title,
@@ -80,30 +88,31 @@ function AddEditProduct() {
 
                 const err = error as AxiosError<ErrorResponse>
 
-                toast.error( err.response?.data.message ||"Failed to load product")
+                toast.error(err.response?.data.message || "Failed to load product")
+                naviagte("/sell");
             }
         };
 
         fetchProduct();
 
-    }, [id, isEditMode, reset])
+    }, [id, isEditMode, reset, user, naviagte])
 
     const onSubmit = async (data: AddEditProductFormData) => {
 
         try {
 
-            if(isEditMode){
+            if (isEditMode) {
 
-                await dispatch(updateProduct({id :  id!, productData : data})).unwrap()
+                await dispatch(updateProduct({ id: id!, productData: data })).unwrap()
                 toast.success("Product updated successfully!")
 
-            }else{
+            } else {
 
-                
-                
+
+
                 await dispatch(createProduct({ ...data, image: data.image! })).unwrap()
                 toast.success("Product listed successfully!")
-                
+
             }
 
             naviagte("/sell")
@@ -121,7 +130,7 @@ function AddEditProduct() {
             </button>
 
             <div className="sell-card">
-                <h1 className="sell-title">{isEditMode? "Edit Product": "Sell Product"}</h1>
+                <h1 className="sell-title">{isEditMode ? "Edit Product" : "Sell Product"}</h1>
 
                 <form className="sell-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="sell-form-grid">
@@ -161,7 +170,7 @@ function AddEditProduct() {
 
                                 <div className="form-group">
                                     <label className="form-label">Category</label>
-                                     <select className="sell-input"{...register("category")}>
+                                    <select className="sell-input"{...register("category")}>
                                         <option value="" disabled>Select Category</option>
                                         <option value="Mobiles">Mobiles</option>
                                         <option value="Laptops">Laptops</option>
@@ -193,13 +202,13 @@ function AddEditProduct() {
                                             Choose File
                                         </label>
                                     )}
-                                    <input id="image-upload" className="sell-file-input" type="file"  accept="image/*" style={{ display: "none" }} {...register("image")}/>
+                                    <input id="image-upload" className="sell-file-input" type="file" accept="image/*" style={{ display: "none" }} {...register("image")} />
                                 </div>
                                 {errors.image?.message && <p className="error-message">{errors.image.message}</p>}
                             </div>
 
-                            <button className="sell-button" type="submit" disabled={loading}>{loading ? isEditMode ? "Updating product...": "Listing product..." : 
-                                isEditMode ? "Update Product": "Sell Product"}
+                            <button className="sell-button" type="submit" disabled={loading}>{loading ? isEditMode ? "Updating product..." : "Listing product..." :
+                                isEditMode ? "Update Product" : "Sell Product"}
                             </button>
                         </div>
                     </div>

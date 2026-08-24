@@ -82,27 +82,28 @@ function Checkout() {
 
                 <div className="checkout-items-section">
                     <div className="checkout-items-list">
-                        {cart.items.map((item) => (
+                        {cart.items.map((item) => {
+                            if (!item.product) return null;
+                            return (
+                                <div key={item.product._id} className="checkout-item">
 
-                            <div key={item.product._id} className="checkout-item">
+                                    <img src={item.product.image} alt={item.product.title} className="checkout-item-image"/>
 
-                                <img src={item.product.image} alt={item.product.title} className="checkout-item-image"/>
+                                    <div className="checkout-item-info">
+                                        <h3>{item.product.title}</h3>
 
-                                <div className="checkout-item-info">
-                                    <h3>{item.product.title}</h3>
+                                        <p className="checkout-item-desc">
+                                            {item.product.description}
+                                        </p>
 
-                                    <p className="checkout-item-desc">
-                                        {item.product.description}
-                                    </p>
+                                        <strong className="checkout-item-price">
+                                            ₹{item.product.price?.toLocaleString("en-IN") ?? "0"}
+                                        </strong>
+                                    </div>
 
-                                    <strong className="checkout-item-price">
-                                        ₹{item.product.price.toLocaleString("en-IN")}
-                                    </strong>
                                 </div>
-
-                            </div>
-
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -111,12 +112,15 @@ function Checkout() {
                         <h3 className="summary-title">Order Summary</h3>
 
                         <div className="summary-items-list">
-                            {cart.items.map((item) => (
-                                <div key={item.product._id} className="summary-item-row">
-                                    <span className="summary-item-name">{item.product.title}</span>
-                                    <span className="summary-item-price">₹{item.product.price.toLocaleString("en-IN")}</span>
-                                </div>
-                            ))}
+                            {cart.items.map((item) => {
+                                if (!item.product) return null;
+                                return (
+                                    <div key={item.product._id} className="summary-item-row">
+                                        <span className="summary-item-name">{item.product.title}</span>
+                                        <span className="summary-item-price">₹{item.product.price?.toLocaleString("en-IN") ?? "0"}</span>
+                                    </div>
+                                );
+                            })}
                         </div>
 
                         <div className="summary-delivery-row">
@@ -128,7 +132,7 @@ function Checkout() {
 
                         <h2 className="summary-total">
                             <span>Total:</span>
-                            <span>₹{cart?.totalAmount?.toLocaleString("en-IN")}</span>
+                            <span>₹{cart?.totalAmount?.toLocaleString("en-IN") ?? "0"}</span>
                         </h2>
 
                         <button className="place-order-btn" onClick={handlePlaceOrder} disabled={orderLoading}>
