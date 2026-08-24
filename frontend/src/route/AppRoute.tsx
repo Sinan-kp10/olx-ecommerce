@@ -14,6 +14,7 @@ import AddEditProduct from "../pages/AddEditProduct";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/Checkout";
 import OrderSuccess from "../pages/OrderSuccess";
+import PublicRoute from "./PublicRoute";
 
 
 function AppRoute(){
@@ -51,10 +52,13 @@ function AppRoute(){
 
                 </Route>
 
-                
+                <Route element={<PublicRoute />}>
 
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/signup" element={<Signup />}></Route>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+
+                </Route>
+
 
 
             </Routes>
