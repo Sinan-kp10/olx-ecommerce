@@ -57,7 +57,7 @@ function Product(){
 
                     {products.length === 0 ? (
                         <div className="no-products-container">
-                            <h2 className="no-products">No products available in this category</h2>
+                            <h2 className="no-products">No products available</h2>
                         </div>
                     ) : (
                         <div className="products-grid"> 

@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Checkout.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { AppDispatch, RootState } from "../store/store";
 import { getCart } from "../feature/cart/cartThunk";
-import { placeOrder } from "../feature/order/orderThunk";
 import Loading from "../component/loading/Loading";
 import { toast } from "react-toastify";
+import api from "../Service/api";
+import type { AxiosError } from "axios";
+import type { ErrorResponse } from "../types/productTypes";
 
 function Checkout() {
 
@@ -15,7 +17,7 @@ function Checkout() {
 
     const { cart, loading: cartLoading } = useSelector((state: RootState) => state.cart)
 
-    const { loading : orderLoading } = useSelector((state: RootState) => state.order)
+    const [orderLoading, setOrderLoading] = useState(false)
 
     useEffect(() => {
 
@@ -37,8 +39,8 @@ function Checkout() {
     const handlePlaceOrder = async () => {
 
         try {
-
-            await dispatch(placeOrder()).unwrap();
+            setOrderLoading(true)
+            await api.post("/order/place");
 
             toast.success("Order placed successfully!");
 
@@ -46,7 +48,12 @@ function Checkout() {
 
         } catch (error) {
 
-            toast.error(error as string);
+            const err = error as AxiosError<ErrorResponse>;
+
+            toast.error(err.response?.data.message);
+        }finally{
+
+            setOrderLoading(false);
         }
     };
 
