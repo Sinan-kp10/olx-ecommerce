@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
-import type { Productprops } from "../../types/productTypes";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../store/store";
-import { deleteProduct } from "../../feature/product/productThunk"
+import type { ErrorResponse, MyProductCardProps } from "../../types/productTypes";
 import Swal from "sweetalert2"
 import "./MyProductCard.css"
+import api from "../../Service/api";
+import { useState } from "react";
+import type { AxiosError } from "axios";
 
-function MyProductCard({ product }: Productprops) {
+function MyProductCard({ product , onDelete}: MyProductCardProps) {
 
-    const dispatch = useDispatch<AppDispatch>()
-    const {loading} =useSelector((state : RootState)=> state.product)
+    const [loading, setLoading] = useState(false)
 
-    const handleDelete = async()=>{
+    const handleDelete = async(id : string)=>{
 
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -27,9 +26,10 @@ function MyProductCard({ product }: Productprops) {
         }
 
         try {
+            setLoading(true)
 
-            await dispatch(deleteProduct(product._id)).unwrap()
-
+            await api.delete(`/product/delete/${id}`)
+            onDelete(id)
             await Swal.fire({
                 title: "Deleted!",
                 text: "Your product has been deleted.",
@@ -38,11 +38,14 @@ function MyProductCard({ product }: Productprops) {
 
             
         } catch (error) {
+            const err = error as AxiosError<ErrorResponse>
             Swal.fire({
                 title: "Error",
-                text: error as string,
+                text: err.response?.data.message || "Failed to delete product",
                 icon: "error"
             });
+        }finally {
+            setLoading(false)
         }
     }
 
@@ -71,7 +74,7 @@ function MyProductCard({ product }: Productprops) {
                         <Link to={`/sell/product/edit/${product._id}`} className="my-product-card-edit-btn">Edit</Link>
                     )}
 
-                    <button onClick={handleDelete} disabled={loading} className="my-product-card-delete-btn">
+                    <button onClick={()=>handleDelete(product._id)} disabled={loading} className="my-product-card-delete-btn">
                         {loading ? "Deleting..." : "Delete"}
                     </button>
                 </div>

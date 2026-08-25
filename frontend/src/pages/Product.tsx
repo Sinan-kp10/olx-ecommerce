@@ -1,35 +1,42 @@
-import { useDispatch, useSelector } from "react-redux"
-import type { AppDispatch, RootState } from "../store/store"
 import { useEffect, useState } from "react"
-import { getProducts } from "../feature/product/productThunk"
 import { toast } from "react-toastify"
 import ProductCard from "../component/product/ProductCard"
 import Loading from "../component/loading/Loading"
 import "./Product.css"
+import api from "../Service/api"
+import type { AxiosError } from "axios"
+import type { ErrorResponse, Product } from "../types/productTypes"
 
 
 function Product(){
 
-    const dispatch = useDispatch<AppDispatch>()
 
-    const {products, loading}  = useSelector((state : RootState)=> state.product)
     const [category, setCategory] = useState("");
+    const [products, setProducts] = useState<Product[]>([])
+    const [loading, setLoading] = useState(false)
+
 
     useEffect(()=>{
 
         const fetchProducts = async()=>{
 
            try {
-                await dispatch(getProducts(category || undefined)).unwrap()
+                setLoading(true)
+                const response = await api.get("/", {params : {category}})
+                setProducts(response.data.products);
            } catch (error) {
-                toast.error(error as string);
+                const err = error as AxiosError<ErrorResponse>
+                
+                toast.error(err.response?.data.message || "Failed to fetch products");
+           }finally{
+                setLoading(false)
            }
 
         }
 
         fetchProducts();
 
-    },[dispatch, category])
+    },[category])
 
 
     return (

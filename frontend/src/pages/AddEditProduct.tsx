@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../store/store";
-import { createProduct, updateProduct } from "../feature/product/productThunk";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import "./AddEditProduct.css";
@@ -23,12 +22,13 @@ interface AddEditProductFormData {
 
 function AddEditProduct() {
 
-    const dispatch = useDispatch<AppDispatch>()
 
-    const { loading } = useSelector((state: RootState) => state.product)
+
     const { user } = useSelector((state: RootState) => state.auth)
     const { id } = useParams()
-    const isEditMode = Boolean(id);
+    const isEditMode = Boolean(id)
+    const [loading, setLoading] = useState(false)
+
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<AddEditProductFormData>({ resolver: zodResolver(isEditMode ? EditProductSchema : AddProductSchema) });
 
@@ -67,9 +67,10 @@ function AddEditProduct() {
 
                 const product = response.data.product;
 
-                const currentUserId = user?.id as string
+                const currentUserId = user?._id as string
 
                 if (product && product.seller !== currentUserId) {
+                    toast.error("You are not authorized to edit this product");
                     naviagte("/sell");
                     return;
                 }
@@ -100,17 +101,39 @@ function AddEditProduct() {
     const onSubmit = async (data: AddEditProductFormData) => {
 
         try {
+            setLoading(true)
 
             if (isEditMode) {
 
-                await dispatch(updateProduct({ id: id!, productData: data })).unwrap()
+                const formData = new FormData()
+
+                formData.append("title", data.title)
+                formData.append("description", data.description)
+                formData.append("price", String(data.price))
+                formData.append("category", data.category)
+
+
+                if (data.image && data.image.length > 0) {
+                    formData.append("image", data.image[0])
+                }
+
+                await api.put(`/sell/product/${id}`, formData);
                 toast.success("Product updated successfully!")
 
             } else {
 
+                const formData = new FormData()
 
+                formData.append("title", data.title)
+                formData.append("description", data.description);
+                formData.append("price", data.price.toString());
+                formData.append("category", data.category);
+                if (data.image && data.image.length > 0) {
+                    formData.append("image", data.image[0]);
+                }
 
-                await dispatch(createProduct({ ...data, image: data.image! })).unwrap()
+                await api.post("/sell/product", formData)
+
                 toast.success("Product listed successfully!")
 
             }
@@ -118,8 +141,12 @@ function AddEditProduct() {
             naviagte("/sell")
 
         } catch (error) {
+            const err = error as AxiosError<ErrorResponse>;
 
-            toast.error(error as string)
+            toast.error(err.response?.data.message || (isEditMode ? "Failed to update product" : "Failed to create product"))
+        } finally {
+            setLoading(false)
+
         }
     };
 

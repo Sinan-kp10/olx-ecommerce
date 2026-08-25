@@ -1,35 +1,45 @@
-import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import type { AppDispatch, RootState } from "../store/store"
-import { useEffect } from "react"
-import { getMyProducts } from "../feature/product/productThunk"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import Loading from "../component/loading/Loading"
 import MyProductCard from "../component/product/MyProductCard"
 import "./SellProducts.css"
+import api from "../Service/api"
+import type { ErrorResponse, Product } from "../types/productTypes"
+import type { AxiosError } from "axios"
 
 
 function SellProducts() {
 
-    const dispatch = useDispatch<AppDispatch>()
-    const { products, loading } = useSelector((state: RootState) => state.product)
+
+    const [products, setProducts] = useState<Product[]>([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
 
         const fetchProducts = async () => {
 
             try {
+                setLoading(true)
+                const response = await api.get("/sell")
 
-                await dispatch(getMyProducts()).unwrap()
+                setProducts(response.data.products)
 
             } catch (error) {
+                const err = error as AxiosError<ErrorResponse>
 
-                toast.error(error as string)
+                toast.error(err.response?.data.message || "Failed to fetch products")
 
+            }finally{
+                setLoading(false)
             }
         }
         fetchProducts()
-    }, [dispatch])
+    }, [])
+
+    const handleProductDelete = (id: string) => {
+        setProducts(prevProducts => prevProducts.filter(product => product._id !== id));
+    };
 
     return (
         <div className="sell-products-container">
@@ -50,7 +60,7 @@ function SellProducts() {
                 {!loading && products && products.length > 0 && (
                     <div className="my-products-grid">
                         {products.map((product) => (
-                            <MyProductCard key={product._id} product={product} />
+                            <MyProductCard key={product._id} product={product} onDelete={handleProductDelete}/>
                         ))}
                     </div>
                 )}

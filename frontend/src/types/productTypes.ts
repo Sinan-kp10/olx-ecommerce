@@ -19,6 +19,10 @@ export interface Productprops {
     product : Product
 }
 
+export interface MyProductCardProps extends Productprops {
+    onDelete: (id: string) => void;
+}
+
 export interface ErrorResponse {
     success: boolean;
     message: string;
