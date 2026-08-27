@@ -74,7 +74,7 @@ olx-ecommerce/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/Sinan-kp10/olx-ecommerce
 cd olx-ecommerce
 ```
 
