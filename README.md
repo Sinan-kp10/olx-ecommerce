@@ -74,7 +74,7 @@ olx-ecommerce/
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/Sinan-kp10/olx-ecommerce
 cd olx-ecommerce
 ```
 
@@ -86,7 +86,7 @@ cd backend
 Create a `.env` file containing the following variables:
 ```env
 PORT = 5000
-MONGO_URI = mongodb://localhost:27017/olx-ecommerce
+MONGO_URI = mongodb_url
 JWT_SECRET = your_jwt_secret_key_here
 CLOUDINARY_CLOUD_NAME = your_cloudinary_cloud_name
 CLOUDINARY_API_KEY = your_cloudinary_api_key
@@ -142,7 +142,7 @@ The Vite development server will start, typically on [http://localhost:5173](htt
 
 ---
 
-## 📝 License & Author
+## 📝 Author
 
 ### Author
 - **Sinan-kp10** - [GitHub Profile](https://github.com/Sinan-kp10)
