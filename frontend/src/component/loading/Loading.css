@@ -45,7 +45,7 @@
 
   mask-composite: intersect;
 
-  animation: loader-spin 1s infinite steps(10);
+  animation: loader-spin 1s linear infinite;
 }
 
 @keyframes loader-spin {
