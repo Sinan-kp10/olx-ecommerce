@@ -10,24 +10,24 @@ interface singupData {
 }
 
 interface loginData {
-    email : string,
-    password : string
+    email: string,
+    password: string
 }
 
 
-export const signupService = async({name, email, password} : singupData)=>{
+export const signupService = async ({ name, email, password }: singupData) => {
 
-    if(!name || !email || !password){
+    if (!name || !email || !password) {
         throw new Error("Name, email and password are required")
     }
 
-    if(password.trim().length < 5){
+    if (password.trim().length < 5) {
         throw new Error("password must be contain 6 charachters!")
     }
 
-    const existingUser = await User.findOne({email})
+    const existingUser = await User.findOne({ email })
 
-    if(existingUser){
+    if (existingUser) {
         throw new Error("User already exist")
     }
 
@@ -36,30 +36,30 @@ export const signupService = async({name, email, password} : singupData)=>{
     const user = await User.create({
         name,
         email,
-        password : hashedPassword
+        password: hashedPassword
     })
 
     return {
-        id : user._id,
-        name : user.name,
-        email : user.email
+        _id: user._id,
+        name: user.name,
+        email: user.email
 
     }
 }
 
-export const loginService = async({email, password} : loginData) => {
+export const loginService = async ({ email, password }: loginData) => {
 
-    if(!email || !password){
+    if (!email || !password) {
         throw new Error("Email and password required")
     }
 
-    if(password.trim().length < 5){
+    if (password.trim().length < 5) {
         throw new Error("password must be contain 6 charachters!")
     }
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email })
 
-    if(!user){
+    if (!user) {
         throw new Error("User not found")
     }
 
@@ -71,34 +71,34 @@ export const loginService = async({email, password} : loginData) => {
 
     const jwtSecret = process.env.JWT_SECRET
 
-     if (!jwtSecret) {
+    if (!jwtSecret) {
         throw new Error("JWT_SECRET is not defined");
     }
 
-    const token = jwt.sign({
-        userId : user._id.toString(),
-        email : user.email
-    },
-    jwtSecret,
-    {
-        expiresIn : "7d",
-    })
+    const token = jwt.sign(
+        {
+            userId: user._id.toString(),
+            email: user.email
+        },
+        jwtSecret,
+        { expiresIn: "7d"}
+    )
 
     return {
         token,
-        user :{
-            id : user._id,
-            name : user.name,
-            email : user.email
+        user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email
         }
     }
 }
 
-export const getCurrentuser = async(userId : string) =>{
+export const getCurrentuser = async (userId: string) => {
 
     const user = await User.findById(userId).select("-password")
 
-    if(!user){
+    if (!user) {
         throw new Error("User not found");
     }
 
