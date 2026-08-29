@@ -5,14 +5,14 @@ import Loading from "../component/loading/Loading"
 import "./Product.css"
 import api from "../Service/api"
 import type { AxiosError } from "axios"
-import type { ErrorResponse, Product } from "../types/productTypes"
+import type { ErrorResponse, Product as ProductType } from "../types/productTypes"
 
 
 function Product(){
 
 
     const [category, setCategory] = useState("");
-    const [products, setProducts] = useState<Product[]>([])
+    const [products, setProducts] = useState<ProductType[]>([])
     const [loading, setLoading] = useState(false)
 
 
