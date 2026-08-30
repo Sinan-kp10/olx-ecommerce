@@ -34,7 +34,7 @@ export const login = async(req : Request, res : Response): Promise<void> => {
 
         res.cookie("token", result.token, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "lax"
         });
         
