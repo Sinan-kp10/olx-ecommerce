@@ -1,10 +1,10 @@
 import express from "express"
 import cors from "cors"
-import authRoute from "../src/route/auth.routes"
-import productRoute from "../src/route/product.routes"
+import authRoute from "./route/auth.routes"
+import productRoute from "./route/product.routes"
 import cookieParser from "cookie-parser"
-import cartRoute from "../src/route/cart.routes";
-import orderRoute from "../src/route/order.routes";
+import cartRoute from "./route/cart.routes";
+import orderRoute from "./route/order.routes";
 
 
 const app = express()
