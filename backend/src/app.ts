@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.use(
     cors({
-        origin: "https://olx-ecommerce-clone.vercel.app",
+        origin: ["http://localhost:5173", "https://olx-ecommerce-clone.vercel.app"],
         credentials: true
     })
 )
