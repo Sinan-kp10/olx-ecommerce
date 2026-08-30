@@ -1,10 +1,16 @@
 .loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(242, 244, 245, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  min-height: 60vh;
-  padding: 2rem 0;
+  z-index: 9999;
   box-sizing: border-box;
 }
 
