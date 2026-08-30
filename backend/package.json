@@ -30,7 +30,6 @@
     "start": "node dist/server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module"
+  "author": "Muhammed Sinan KP",
+  "license": "ISC"
 }
