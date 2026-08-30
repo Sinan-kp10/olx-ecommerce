@@ -32,10 +32,11 @@ export const login = async(req : Request, res : Response): Promise<void> => {
 
         const result = await loginService(req.body)
 
+        const isProduction = process.env.NODE_ENV === "production";
         res.cookie("token", result.token, {
             httpOnly: true,
-            secure: true,
-            sameSite: "lax"
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax"
         });
         
         res.status(201).json({
@@ -80,10 +81,11 @@ export const logout = async(req: Request, res: Response) : Promise<void> =>{
 
     try {
 
+        const isProduction = process.env.NODE_ENV === "production";
         res.clearCookie("token", {
             httpOnly: true,
-            secure: false,
-            sameSite: "lax"
+            secure: isProduction,
+            sameSite: isProduction ? "none" : "lax"
         })
 
         res.status(200).json({
