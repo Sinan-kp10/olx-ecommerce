@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import type { Productprops } from "../../types/productTypes";
 import "./ProductCard.css";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../store/store";
+import { useDispatch} from "react-redux";
+import type { AppDispatch } from "../../store/store";
 import { addToCart } from "../../feature/cart/cartThunk";
 import { toast } from "react-toastify";
 
@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 function ProductCard({product} : Productprops){
 
     const dispatch = useDispatch<AppDispatch>()
-    const {loading} = useSelector((state : RootState)=> state.cart)
 
     const handleAddToCart = async()=>{
 
@@ -49,7 +48,7 @@ function ProductCard({product} : Productprops){
                     </div>
                 </div>
             </Link>
-            <button onClick={handleAddToCart}>{loading ? "Adding" :"Add to Cart" }</button>
+            <button onClick={handleAddToCart}>Add to Cart</button>
 
         </div>
     )
