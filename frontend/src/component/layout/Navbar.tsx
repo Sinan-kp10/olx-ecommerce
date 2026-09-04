@@ -4,6 +4,8 @@ import type { AppDispatch, RootState } from "../../store/store";
 import { logout } from "../../feature/auth/authThunk";
 import { toast } from "react-toastify";
 import "./Navbar.css";
+import { useEffect } from "react";
+import { getCart } from "../../feature/cart/cartThunk";
 
 function Navbar() {
 
@@ -14,6 +16,12 @@ function Navbar() {
     const navigate = useNavigate()
 
     const cartCount = cart?.items.length ?? 0;
+    
+    useEffect(() => {
+        if (isAuthenticated) {
+            dispatch(getCart());
+        }
+    }, [isAuthenticated, dispatch])
 
     const handleClick = async () => {
 
