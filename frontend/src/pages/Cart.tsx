@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../store/store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { getCart, removeFromCart } from "../feature/cart/cartThunk"
 import { toast } from "react-toastify"
+import Loading from "../component/loading/Loading"
 import Swal from "sweetalert2"
 import "./Cart.css"
 import { useNavigate } from "react-router-dom"
@@ -10,8 +11,9 @@ import { useNavigate } from "react-router-dom"
 function Cart() {
 
     const dispatch = useDispatch<AppDispatch>()
-    const { cart} = useSelector((state: RootState) => state.cart)
+    const { cart } = useSelector((state: RootState) => state.cart)
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
 
@@ -46,13 +48,15 @@ function Cart() {
 
         try {
 
+            setLoading(true)
             await dispatch(removeFromCart(productId)).unwrap();
-
             toast.success("Product removed from cart");
 
         } catch (error) {
 
             toast.error(error as string);
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -60,8 +64,9 @@ function Cart() {
         <div className="cart-page-container">
             <h1>My Cart</h1>
 
+            {loading && <Loading />}
 
-            {(!cart || cart.items.length === 0) ? (
+            {!loading && (!cart || cart.items.length === 0) ? (
                 <div className="cart-empty">
                     <h3>Your Cart is Empty</h3>
                 </div>
