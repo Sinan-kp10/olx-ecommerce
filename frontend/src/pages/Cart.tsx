@@ -3,7 +3,6 @@ import type { AppDispatch, RootState } from "../store/store"
 import { useEffect } from "react"
 import { getCart, removeFromCart } from "../feature/cart/cartThunk"
 import { toast } from "react-toastify"
-import Loading from "../component/loading/Loading"
 import Swal from "sweetalert2"
 import "./Cart.css"
 import { useNavigate } from "react-router-dom"
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 function Cart() {
 
     const dispatch = useDispatch<AppDispatch>()
-    const { cart, loading } = useSelector((state: RootState) => state.cart)
+    const { cart} = useSelector((state: RootState) => state.cart)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -61,9 +60,8 @@ function Cart() {
         <div className="cart-page-container">
             <h1>My Cart</h1>
 
-            {loading && <Loading />}
 
-            {!loading && (!cart || cart.items.length === 0) ? (
+            {(!cart || cart.items.length === 0) ? (
                 <div className="cart-empty">
                     <h3>Your Cart is Empty</h3>
                 </div>
